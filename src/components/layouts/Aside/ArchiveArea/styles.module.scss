@@ -1,0 +1,41 @@
+@use '@variable' as *;
+
+
+.container {
+  width: 100%;
+}
+
+/* 奇数行 */
+.archive {
+  background: var(--c-sub);
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: var(--c-main);
+  letter-spacing: 0.1em;
+  transition: background 0.1s;
+
+  @include mq(xl) {
+    font-size: 1rem;
+    padding: 16px 20px;
+  }
+
+  @include mq(md) {
+    padding: 10px 20px;
+    font-size: 0.75rem;
+  }
+
+  &:hover {
+    opacity: 0.9;
+    background: var(--c-main);
+    color: var(--c-sub);
+    transition: background 1s;
+  }
+}
+
+/* 偶数行 ※ 背景色のみ異なる */
+.archive_even {
+  @extend .archive;
+  background: var(--c-bg); // ※ 背景差分（元のReact版に合わせる場合は適宜修正）
+}

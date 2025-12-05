@@ -1,0 +1,18 @@
+@use '@variable' as *;
+
+.article {
+  width: 780px;
+
+  @include mq(xl) {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+
+  @include mq(lg) {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 95%;
+    margin-bottom: 60px;
+  }
+}

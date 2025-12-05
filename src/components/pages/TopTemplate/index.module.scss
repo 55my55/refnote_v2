@@ -1,0 +1,20 @@
+@use '@variable' as *;
+
+
+/* PC向け一覧 */
+.blogItem {
+  display: block;
+
+  @include mq(lg) {
+    display: none;
+  }
+}
+
+/* SP向け一覧 */
+.blogItem__responsive {
+  display: none;
+
+  @include mq(lg) {
+    display: block;
+  }
+}

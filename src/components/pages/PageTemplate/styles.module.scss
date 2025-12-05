@@ -1,0 +1,18 @@
+@use '@variable' as *;
+
+
+.blogItem {
+  display: block;
+
+  @include mq(lg) {
+    display: none;
+  }
+}
+
+.blogItem__responsive {
+  display: none;
+
+  @include mq(lg) {
+    display: block;
+  }
+}

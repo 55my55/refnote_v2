@@ -1,0 +1,22 @@
+@use '@variable' as *;
+
+
+/* 検索フォームのコンテナ */
+.container {
+  position: relative;
+}
+
+/* 検索アイコンの位置調整 */
+.icon {
+  position: absolute;
+  right: 15px;
+  top: 2px;
+
+  @include mq(lg) {
+    top: 5px;
+  }
+
+  @include mq(md) {
+    top: 8px;
+  }
+}
