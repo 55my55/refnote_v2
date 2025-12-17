@@ -6,10 +6,15 @@
   margin-top: 30px;
   margin-right: auto;
   margin-left: auto;
-  width: 80px;
+  width: 120px;
+  margin-bottom: 16px;
 
   &__pic {
     border-radius: 50%;
+    display: block;
+    max-width: 120px;
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -28,7 +33,8 @@
 
   &__name {
     text-align: center;
-    margin-bottom: 4px;
+    margin-top: 8px;
+    margin-bottom: 6px;
     font-size: 0.875rem;
     font-weight: bold;
     line-height: 18px;
@@ -36,8 +42,9 @@
 
   &__eng_name {
     text-align: center;
-    margin-bottom: 10px;
-    font-size: 0.75rem;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+    color: #6b7280;
   }
 
   &__position {
@@ -48,11 +55,12 @@
 
 .sns {
   display: flex;
+  justify-content: center;
   margin-top: 20px;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 30px;
-  width: 100px;
+  width: 100%;
 
   &__icon {
     cursor: pointer;

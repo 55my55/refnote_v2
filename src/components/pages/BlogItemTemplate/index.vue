@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BasePostPageLayout from '@/components/layouts/BasePostPageLayout/index.vue'
-import SnsShareBar from '@/components/common/molecules/SnsShareBar/index.vue'
-import SnsShareArea from '@/components/common/molecules/SnsShareArea/index.vue'
+import ShareButtons from '@/components/common/molecules/ShareButtons/index.vue'
 import TitleArea from './organisms/TitleArea/index.vue'
 import TableOfContents from './organisms/TableOfContents/index.vue'
 import HighlightBody from '@/components/common/molecules/HighlightBody/index.vue'
@@ -38,6 +37,9 @@ const { shareUrl } = useShareUrl()
         </NuxtLink>
       </div>
 
+      <!-- タイトル・カテゴリ・日時 -->
+      <TitleArea :blogItem="blogItem" />
+
       <div :class="$style.image">
         <!-- 記事のメイン画像（最適化版） -->
         <NuxtImg
@@ -46,22 +48,19 @@ const { shareUrl } = useShareUrl()
           :width="blogItem.image.width"
           :height="blogItem.image.height"
           format="webp"
+          :quality="75"
           loading="lazy"
+          sizes="(max-width: 800px) 100vw, 960px"
         />
       </div>
 
-      <main :class="$style.main">
-        <div :class="$style.leftBar">
-          <!-- SNSシェアボタン 左サイドバー -->
-          <SnsShareBar
-            :title="blogItem.title"
-            :shareUrl="shareUrl"
-          />
-        </div>
 
+          <!-- SNSシェアボタン 記事最下層 -->
+          <ShareButtons :url="shareUrl" :title="blogItem.title" />
+
+      <main :class="$style.main">
         <div :class="$style.rightBar">
-          <!-- ブログタイトルエリア -->
-          <TitleArea :blogItem="blogItem" />
+
 
           <!-- 目次 -->
           <TableOfContents :tableOfContents="tableOfContents" />
@@ -69,13 +68,6 @@ const { shareUrl } = useShareUrl()
           <!-- 記事本文 -->
           <HighlightBody :highlightedBody="highlightedBody" />
 
-          <!-- SNSシェアボタン 記事最下層 -->
-          <div :class="$style.shareArea">
-            <SnsShareArea
-              :title="blogItem.title"
-              :shareUrl="shareUrl"
-            />
-          </div>
         </div>
       </main>
     </section>

@@ -15,14 +15,16 @@ import styles from './styles.module.scss'
 </script>
 
 <template>
-  <NuxtLink :to="`/${blogItem.id}`" :class="styles.container">
+  <NuxtLink :to="`/${blogItem.slug || blogItem.id}`" :class="styles.container">
     <div :class="styles.image">
       <NuxtImg
         :src="blogItem.image.url"
         :alt="blogItem.title"
         format="webp"
-        :width="blogItem.image.width * 2"
-        :height="blogItem.image.height * 2"
+        :width="blogItem.image.width || 320"
+        :height="blogItem.image.height || 180"
+        :quality="75"
+        sizes="(max-width: 600px) 100vw, 320px"
       />
     </div>
 

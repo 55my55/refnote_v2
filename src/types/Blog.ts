@@ -31,10 +31,20 @@ export interface BlogDataType {
 }
 
 /**
+ * microCMS のブログ一覧レスポンス（生データ）
+ */
+export interface MicroCMSBlogListResponse {
+  contents: BlogItemType[]
+  totalCount: number
+  offset: number
+  limit: number
+}
+
+/**
  * 目次モデル
  */
 export interface TableOfContentType {
-  text: string   
-  id: string    
-  name: string 
+  text: string
+  id: string
+  name: string
 }

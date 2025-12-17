@@ -47,41 +47,55 @@ const { data } = await useAsyncData<BlogItemPageData>(
   () => `blogItem-${blogId.value}-${draftKey.value}`,
   async () => {
     try {
-      // ブログ記事詳細データ取得 ---------
-      const blogDetailData = await getBlogByApi(blogId.value, draftKey.value)
-      // カテゴリーデータ取得 ---------
-      const categories = await getCategoriesApi()
-      // プロフィールデータ取得 ---------
-      const profile = await getProfileByApi()
-      // アーカイブデータ取得 ---------
-      const archiveList = await getArchiveListService()
+      // 取得処理の計測開始 -----------------------------
+      console.time('blogItem-fetch')
 
-      // シンタックスハイライト文章作成（cheerio + highlight.js）
-      // Nuxt4 では cheerio を ESM として扱うため dynamic import を利用
-      // 型は any で握りつぶし、環境依存のエラーを回避する
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cheerio = (await import('cheerio')) as any
-      const $ = cheerio.load(blogDetailData.body)
+      // ブログ記事詳細・カテゴリ・プロフィール・アーカイブを並列取得
+      const [blogDetailData, categories, profile, archiveList] =
+        await Promise.all([
+          getBlogByApi(blogId.value, draftKey.value),
+          getCategoriesApi(),
+          getProfileByApi(),
+          getArchiveListService(),
+        ])
 
-      $('pre code').each((_: unknown, elm: any) => {
-        const result = hljs.highlightAuto($(elm).text())
-        $(elm).html(result.value)
-        $(elm).addClass('hljs')
-      })
+      console.timeEnd('blogItem-fetch')
 
-      // 目次作成（h1, h2 を走査）
-      const headings = $('h1, h2').toArray()
-      const tableOfContents: TableOfContentType[] = headings.map((node: any) => {
-        return {
-          text: String(node.children?.[0]?.data ?? ''),
-          id: node.attribs?.id ?? '',
-          name: node.name ?? '',
-        }
-      })
+      // シンタックスハイライトと目次生成はサーバー側のみで実行（クライアント遷移時のエラーを防止）
+      let highlightedBody = blogDetailData.body
+      let tableOfContents: TableOfContentType[] = []
+
+      if (import.meta.server) {
+        console.time('blogItem-highlight')
+        // Nuxt4 では cheerio を ESM として扱うため dynamic import を利用
+        // 型は any で握りつぶし、環境依存のエラーを回避する
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const cheerio = (await import('cheerio')) as any
+        const $ = cheerio.load(blogDetailData.body)
+
+        $('pre code').each((_: unknown, elm: any) => {
+          const result = hljs.highlightAuto($(elm).text())
+          $(elm).html(result.value)
+          $(elm).addClass('hljs')
+        })
+        console.timeEnd('blogItem-highlight')
+
+        // 目次作成（h1, h2 を走査）
+        const headings = $('h1, h2').toArray()
+        tableOfContents = headings.map((node: any) => {
+          return {
+            text: String(node.children?.[0]?.data ?? ''),
+            id: node.attribs?.id ?? '',
+            name: node.name ?? '',
+          }
+        })
+
+        highlightedBody = $.html()
+      }
 
       return {
         blogItem: blogDetailData,
-        highlightedBody: $.html(),
+        highlightedBody,
         tableOfContents,
         categories,
         profile,

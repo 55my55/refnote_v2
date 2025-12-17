@@ -9,19 +9,22 @@ import Error404Template from '@/components/pages/Error404Template/index.vue'
 import { useSetData } from '@/composables/useSetData'
 import { getArchiveListService } from '@/service/ArchiveService'
 import { getCategoriesApi } from '@/apis/CategoryApi'
+import { getProfileByApi } from '@/apis/ProfileApi'
 import type { CategoryType } from '@/types/Category'
 import type { ArchiveType } from '@/types/Archive'
+import type { ProfileType } from '@/types/Profile'
 
 type Error404PageData = {
   categories: CategoryType[]
   archiveList: ArchiveType[]
+  profile: ProfileType
 }
 
 /**
  * グローバル状態 setter
  * （カテゴリ・アーカイブを 404 ページ表示前に反映する）
  */
-const { setCategoryData, setArchiveData } = useSetData()
+const { setCategoryData, setArchiveData, setProfileData } = useSetData()
 
 /**
  * カテゴリー・アーカイブの取得
@@ -29,12 +32,16 @@ const { setCategoryData, setArchiveData } = useSetData()
 const { data } = await useAsyncData<Error404PageData>(
   'error-404-page',
   async () => {
-    const categories = await getCategoriesApi()
-    const archiveList = await getArchiveListService()
+    const [categories, archiveList, profile] = await Promise.all([
+      getCategoriesApi(),
+      getArchiveListService(),
+      getProfileByApi(),
+    ])
 
     return {
       categories,
       archiveList,
+      profile,
     }
   }
 )
@@ -48,6 +55,7 @@ watch(
     if (!value) return
     setCategoryData(value.categories)
     setArchiveData(value.archiveList)
+    setProfileData(value.profile)
   },
   { immediate: true }
 )

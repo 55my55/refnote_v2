@@ -8,6 +8,9 @@
   @include mq(xl) {
     width: 100%;
   }
+
+  // コンテンツが少なくてもフッターが下に張り付くように余白を確保
+  padding-bottom: 80px;
 }
 
 .input {
@@ -47,11 +50,9 @@
 }
 
 .list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
+  display: block;
 
+  // PC 表示のみ
   @include mq(lg) {
     display: none;
   }
@@ -66,6 +67,7 @@
   &__responsive {
     display: none;
 
+    // タブレット以下で表示
     @include mq(lg) {
       display: block;
     }

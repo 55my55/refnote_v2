@@ -4,6 +4,21 @@ import { fileURLToPath } from 'node:url'
 export default defineNuxtConfig({
   srcDir: 'src',
   compatibilityDate: '2025-11-14',
+  css: ['~/styles/globals.scss'],
+  routeRules: {
+    '/': { prerender: true },
+    '/page/**': { prerender: true },
+    '/category/**': { prerender: true },
+    '/archive/**': { prerender: true },
+    '/policy': { prerender: true },
+    '/term': { prerender: true },
+    '/profile': { prerender: true },
+    '/blog/**': {
+      isr: {
+        expiration: 60,
+      },
+    },
+  },
 
   runtimeConfig: {
     // サーバーサイド専用

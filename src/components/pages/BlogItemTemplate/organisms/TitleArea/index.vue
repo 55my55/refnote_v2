@@ -9,7 +9,6 @@ const props = defineProps<{
 
 <template>
   <div :class="$style.container">
-    <h2 :class="$style.title">{{ blogItem.title }}</h2>
 
     <div :class="$style.category">
       <div
@@ -23,6 +22,8 @@ const props = defineProps<{
         </NuxtLink>
       </div>
     </div>
+
+    <h2 :class="$style.title">{{ blogItem.title }}</h2>
 
     <div :class="$style.date">
       <DateArea :date="blogItem.createdAt" />

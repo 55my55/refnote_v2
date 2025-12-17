@@ -11,7 +11,7 @@ import styles from './styles.module.scss'
 // 型 import
 import type { BlogItemType } from '@/types/Blog'
 
-// --- useState の型指定（これ必須） ---
+// --- useState の型指定 ---
 const blogList = useState<BlogItemType[]>('blogList', () => [])
 const blogTotalCount = useState<number>('blogTotalCount', () => 0)
 
@@ -23,7 +23,7 @@ const { metaData } = useMetaData({})
     <div :class="styles.blogItem">
       <BlogItem
         v-for="(blogItem, index) in blogList"
-        :key="`${blogItem.id}_${index}`"
+        :key="`${blogItem.slug || blogItem.id}_${index}`"
         :blogItem="blogItem"
       />
     </div>
@@ -31,7 +31,7 @@ const { metaData } = useMetaData({})
     <div :class="styles.blogItem__responsive">
       <BlogItemResponsive
         v-for="(blogItem, index) in blogList"
-        :key="`${blogItem.id}_${index}`"
+        :key="`${blogItem.slug || blogItem.id}_${index}`"
         :blogItem="blogItem"
       />
     </div>

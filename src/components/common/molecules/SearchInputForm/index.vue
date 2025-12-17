@@ -4,8 +4,11 @@
  * @package Component
  */
 
-// props だけ定義（中ではまだ使わない）
-interface SearchInputFormProps {
+import InputForm from '~/components/common/atoms/InputForm/index.vue'
+import SearchIcon from '~/components/common/icons/SearchIcon/index.vue'
+import styles from './styles.module.scss'
+
+interface Props {
   text: string
   placeholder: string
   size?: number
@@ -14,12 +17,20 @@ interface SearchInputFormProps {
   onClick?: () => void
 }
 
-defineProps<SearchInputFormProps>()
+const props = defineProps<Props>()
 </script>
 
 <template>
-  <div>
-    <!-- 一旦ダミー -->
-    SearchInputForm
+  <div :class="styles.container">
+    <InputForm
+      :text="props.text"
+      :placeholder="props.placeholder"
+      :on-change="props.onChange"
+      :on-key-up="props.onKeyUp"
+      :on-click="props.onClick"
+    />
+    <div :class="styles.icon">
+      <SearchIcon :size="props.size" />
+    </div>
   </div>
 </template>

@@ -4,6 +4,9 @@
 .wrapper {
   position: relative;
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -48,6 +51,7 @@
 
 .footer {
   width: 100%;
+  margin-top: auto; // コンテンツが少なくても下部に張り付ける
 }
 
 .fixButton {

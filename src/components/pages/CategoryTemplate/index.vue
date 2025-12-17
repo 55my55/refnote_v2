@@ -41,7 +41,7 @@ const { metaData } = useMetaData({
     <div :class="$style.blogItem">
       <BlogItem
         v-for="(blogItem, index) in blogList"
-        :key="`${(blogItem as BlogItemType).id}_${index}`"
+        :key="`${(blogItem as BlogItemType).slug || (blogItem as BlogItemType).id}_${index}`"
         :blogItem="blogItem"
       />
     </div>
@@ -50,7 +50,7 @@ const { metaData } = useMetaData({
     <div :class="$style.blogItem__responsive">
       <BlogItemResponsive
         v-for="(blogItem, index) in blogList"
-        :key="`responsive_${(blogItem as BlogItemType).id}_${index}`"
+        :key="`responsive_${(blogItem as BlogItemType).slug || (blogItem as BlogItemType).id}_${index}`"
         :blogItem="blogItem"
       />
     </div>

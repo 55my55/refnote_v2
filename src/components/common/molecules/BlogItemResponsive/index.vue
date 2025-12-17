@@ -16,7 +16,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <NuxtLink :to="`/${props.blogItem.id}`">
+  <NuxtLink :to="`/${props.blogItem.slug || props.blogItem.id}`">
     <div :class="styles.container">
       <!-- 画像 -->
       <div :class="styles.image">
@@ -30,6 +30,7 @@ const props = defineProps<Props>()
           quality="70"
           loading="lazy"
           decoding="async"
+          sizes="(max-width: 600px) 100vw, 320px"
         />
       </div>
 

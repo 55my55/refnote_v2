@@ -7,7 +7,7 @@
 import BaseLayout from '@/components/layouts/BaseLayout/index.vue'
 import PageTitle from '@/components/common/atoms/PageTitle/index.vue'
 import SearchInputForm from '@/components/common/molecules/SearchInputForm/index.vue'
-import SearchBlogItem from '@/components/pages/SearchTemplate/organisms/SearchBlogItem/index.vue'
+import BlogItem from '@/components/common/molecules/BlogItem/index.vue'
 import BlogItemResponsive from '@/components/common/molecules/BlogItemResponsive/index.vue'
 
 import { useSearchTemplate } from '@/components/pages/SearchTemplate/useSearchTemplate'
@@ -18,6 +18,7 @@ import styles from './styles.module.scss'
 
 type Props = {
   breadName: string
+  onCardClick?: () => void
 }
 
 const props = defineProps<Props>()
@@ -64,10 +65,11 @@ const { metaData } = useMetaData({ title: props.breadName })
       <!-- 検索結果一覧 PC -->
       <div :class="styles.list">
         <template v-if="showBlogList.length > 0">
-          <SearchBlogItem
+          <BlogItem
             v-for="blog in showBlogList"
             :key="blog.id"
-            :blog-item="blog"
+            :blogItem="blog"
+            @click="props.onCardClick?.()"
           />
         </template>
         <div v-else :class="styles.unknown">
@@ -82,7 +84,8 @@ const { metaData } = useMetaData({ title: props.breadName })
           <BlogItemResponsive
             v-for="blog in showBlogList"
             :key="blog.id"
-            :blog-item="blog"
+            :blogItem="blog"
+            @click="props.onCardClick?.()"
           />
         </template>
         <div v-else :class="styles.unknown">

@@ -21,8 +21,8 @@ const route = useRoute()
     <div :class="styles.main">
       <NuxtLink to="/">
         <div :class="styles.title">
-          <h1>NOCHITOKU</h1>
-          <p>ITエンジニアの技術ブログ</p>
+          <h1>refnote</h1>
+          <p>Web開発の備忘録</p>
         </div>
       </NuxtLink>
 

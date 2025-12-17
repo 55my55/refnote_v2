@@ -12,25 +12,26 @@ import {
   getBlogByApi,
   getBlogContainArchiveMonthApi,
   getBlogArchivesCountApi,
-} from '@/apis/BlogApi'
+} from '~/apis/BlogApi'
 /* logics */
 import {
   getStartOfMonthLogic,
   getEndOfMonthLogic,
   addOneDayLogic,
   subtractOneDayLogic,
-} from '@/logic/DateLogic'
+} from '~/logic/DateLogic'
 /* constants */
-import { BLOG_SHOW_COUNT } from '@/constants/config'
+import { BLOG_SHOW_COUNT } from '~/constants/config'
 /* types */
-import type { BlogItemType, BlogDataType } from '@/types/Blog'
+import type { BlogItemType, BlogDataType } from '~/types/Blog'
 
 /**
  * 一覧取得（ページング付き）
  * - Next版の getBlogsApi を page ベースでラップ
  */
 export const getPosts = async (page = 1): Promise<BlogDataType> => {
-  const offset = (page - 1) * BLOG_SHOW_COUNT
+  const safePage = Number.isFinite(page) && page > 0 ? page : 1
+  const offset = (safePage - 1) * BLOG_SHOW_COUNT
   return await getBlogsApi(offset)
 }
 

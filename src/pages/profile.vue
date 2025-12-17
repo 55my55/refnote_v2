@@ -33,10 +33,12 @@ const { setCategoryData, setProfileData, setArchiveData } = useSetData()
 const { data, error } = await useAsyncData<ProfilePageData>(
   'profile-page',
   async () => {
-    // プロフィール／カテゴリ／アーカイブ取得
-    const profile = await getProfileByApi()
-    const categories = await getCategoriesApi()
-    const archiveList = await getArchiveListService()
+    // プロフィール／カテゴリ／アーカイブを並列取得
+    const [profile, categories, archiveList] = await Promise.all([
+      getProfileByApi(),
+      getCategoriesApi(),
+      getArchiveListService(),
+    ])
 
     // cheerio は ESM なので動的 import
     const { load } = await import('cheerio')

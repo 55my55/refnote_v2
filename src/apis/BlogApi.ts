@@ -6,22 +6,34 @@
  * @package apis
  */
 
-import { BLOG_SHOW_COUNT } from '@/constants/config'
-import { initBlogData, initBlogItem } from '@/constants/initState'
-import type { BlogItemType, BlogDataType } from '@/types/Blog'
+import { BLOG_SHOW_COUNT } from '~/constants/config'
+import { initBlogData, initBlogItem } from '~/constants/initState'
+import type { BlogItemType, BlogDataType } from '~/types/Blog'
 
 type BlogListQueries = {
   limit?: number
   offset?: number
   orders?: string
   filters?: string
+  depth?: number
+  fields?: string
 }
 
 /**
  * 共通一覧取得ラッパ
  */
 const fetchBlogs = (queries?: BlogListQueries) =>
-  $fetch<BlogDataType>('/api/microcms/blogs', { params: queries })
+  $fetch<BlogDataType>('/api/microcms/blogs', {
+    params: {
+      // 一覧系は極力軽量に取得する
+      depth: 1,
+      ...queries,
+    },
+  })
+
+// 一覧取得時に必要なフィールドだけに絞る
+const BLOG_LIST_FIELDS =
+  'id,title,slug,createdAt,updatedAt,publishedAt,revisedAt,description,image.url,image.width,image.height,categories'
 
 /**
  * ブログ一覧取得（ページング前提）
@@ -34,6 +46,7 @@ export const getBlogsApi = async (offset: number): Promise<BlogDataType> => {
     const res = await fetchBlogs({
       offset,
       limit: BLOG_SHOW_COUNT,
+      fields: BLOG_LIST_FIELDS,
     })
     blogData = res
   } catch (error) {
@@ -48,7 +61,7 @@ export const getBlogsApi = async (offset: number): Promise<BlogDataType> => {
 /**
  * カテゴリに紐づくブログ一覧取得
  * @param offset     取得開始位置
- * @param categoryId カテゴリ ID
+ * @param categoryId microCMS の Category ID
  */
 export const getBlogsContainCategoryApi = async (
   offset: number,
@@ -60,6 +73,8 @@ export const getBlogsContainCategoryApi = async (
     const res = await fetchBlogs({
       offset,
       limit: BLOG_SHOW_COUNT,
+      fields: BLOG_LIST_FIELDS,
+      // microCMS の参照フィールドは ID でフィルタ
       filters: `categories[contains]${categoryId}`,
     })
     blogData = res
@@ -87,8 +102,9 @@ export const getBlogContainArchiveMonthApi = async (
 
   try {
     const res = await fetchBlogs({
-      offset,
+      offset: Math.max(0, offset),
       limit: BLOG_SHOW_COUNT,
+      fields: BLOG_LIST_FIELDS,
       filters: `createdAt[greater_than]${startDate}[and]createdAt[less_than]${endDate}`,
     })
     blogData = res

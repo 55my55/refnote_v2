@@ -29,6 +29,8 @@ const iconStyle = computed(() => ({
   height: `${props.size}px`,
   borderRadius: `${props.radius}px`,
 }))
+
+const facebookLogoSrc = new URL('@/svgs/facebook.svg', import.meta.url).href
 </script>
 
 <template>
@@ -39,7 +41,7 @@ const iconStyle = computed(() => ({
     class="share-btn"
   >
     <img
-      src="/icons/facebook.svg"
+      :src="facebookLogoSrc"
       alt="Facebookでシェア"
       :style="iconStyle"
     />

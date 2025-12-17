@@ -9,6 +9,7 @@ import type { BlogItemType } from '@/types/Blog'
 import type { CategoryType } from '@/types/Category'
 import type { ProfileType } from '@/types/Profile'
 import type { ArchiveType } from '@/types/Archive'
+import { initProfileState } from '~/constants/initState'
 
 /**
  * useSetData
@@ -18,7 +19,7 @@ export const useSetData = () => {
   const blogList = useState<BlogItemType[]>('blogList', () => [])
   const blogTotalCount = useState<number>('blogTotalCount', () => 0)
   const categories = useState<CategoryType[]>('categories', () => [])
-  const profile = useState<ProfileType | null>('profile', () => null)
+  const profile = useState<ProfileType>('profile', () => initProfileState)
   const archiveList = useState<ArchiveType[]>('archiveList', () => [])
 
   /**

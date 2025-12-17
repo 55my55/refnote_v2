@@ -3,27 +3,29 @@ import { NAVIGATION_LINK } from '@/constants/navigation'
 </script>
 
 <template>
-  <div class="container">
-    <ul class="lists">
+  <div :class="$style.container">
+    <ul :class="$style.lists">
       <NuxtLink :to="NAVIGATION_LINK.TOP">
-        <li class="list">HOME</li>
+        <li :class="$style.list">HOME</li>
       </NuxtLink>
 
-      <li class="after">|</li>
+      <li :class="$style.after">|</li>
 
       <NuxtLink :to="NAVIGATION_LINK.POLICY">
-        <li class="list">プライバシーポリシー</li>
+        <li :class="$style.list">プライバシーポリシー</li>
       </NuxtLink>
 
-      <li class="after">|</li>
+      <li :class="$style.after">|</li>
 
       <NuxtLink :to="NAVIGATION_LINK.TERM">
-        <li class="list">免責事項</li>
+        <li :class="$style.list">免責事項</li>
       </NuxtLink>
     </ul>
 
-    <p class="copy">
-      © <span>2021 NOCHITOKU.</span>
+    <p :class="$style.copy">
+      © <span>2021 refnote.</span>
     </p>
   </div>
 </template>
+
+<style module lang="scss" src="./styles.module.scss" />
