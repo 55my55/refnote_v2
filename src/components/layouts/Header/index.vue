@@ -51,10 +51,7 @@ const route = useRoute()
         </div>
 
         <!-- ハンバーガー -->
-        <div
-          :class="styles.sp__menu"
-          @click="props.handleOpenMenuModal"
-        >
+        <div :class="styles.sp__menu" @click="props.handleOpenMenuModal">
           <MenuIcon />
         </div>
       </div>

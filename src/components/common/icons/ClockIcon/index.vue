@@ -4,7 +4,6 @@
  * @package Component
  */
 
-
 type ClockIconProps = {
   size?: number
   color?: string

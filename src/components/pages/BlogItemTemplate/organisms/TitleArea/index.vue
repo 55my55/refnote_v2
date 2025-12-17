@@ -9,12 +9,8 @@ const props = defineProps<{
 
 <template>
   <div :class="$style.container">
-
     <div :class="$style.category">
-      <div
-        v-for="category in blogItem.categories"
-        :key="category.id"
-      >
+      <div v-for="category in blogItem.categories" :key="category.id">
         <NuxtLink :to="`/category/${category.id}/page/1`">
           <div :class="$style.category__item">
             {{ category.name }}

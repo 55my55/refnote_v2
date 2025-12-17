@@ -23,10 +23,7 @@ type ProfileListResponse = {
 }
 
 const isProfile = (data: unknown): data is ProfileType =>
-  typeof data === 'object' &&
-  data !== null &&
-  'id' in data &&
-  typeof (data as any).id === 'string'
+  typeof data === 'object' && data !== null && 'id' in data && typeof (data as any).id === 'string'
 
 const extractProfile = (res: ProfileResponse | ProfileListResponse): ProfileType => {
   if ('profile' in res && isProfile((res as any).profile)) {

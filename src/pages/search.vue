@@ -29,18 +29,15 @@ const isNavigating = ref(false)
 /**
  * 検索ページ用データ取得
  */
-const { data, error } = await useAsyncData<SearchPageData>(
-  'search-page',
-  async () => {
-    // 検索ページ用にまとめて取得（最大100件）
-    const blogData = await getBlogs({ limit: 100 })
+const { data, error } = await useAsyncData<SearchPageData>('search-page', async () => {
+  // 検索ページ用にまとめて取得（最大100件）
+  const blogData = await getBlogs({ limit: 100 })
 
-    return {
-      blogList: blogData.blogList,
-      totalCount: blogData.totalCount,
-    }
+  return {
+    blogList: blogData.blogList,
+    totalCount: blogData.totalCount,
   }
-)
+})
 
 /**
  * サイドバー用データをまとめて取得（カテゴリ / プロフィール / アーカイブ）
@@ -80,7 +77,7 @@ watch(
     setBlogData(value.blogList, value.totalCount)
     setBlogDataProvider(value.blogList, value.totalCount)
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>
 
@@ -91,9 +88,5 @@ watch(
   </div>
 
   <!-- 通常表示 -->
-  <SearchTemplate
-    v-else
-    bread-name="検索結果"
-    :onCardClick="() => (isNavigating = true)"
-  />
+  <SearchTemplate v-else bread-name="検索結果" :onCardClick="() => (isNavigating = true)" />
 </template>

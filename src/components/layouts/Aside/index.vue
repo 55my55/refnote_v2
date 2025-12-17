@@ -27,10 +27,9 @@ const { searchText, onChangeSearchText, onKeyUpSearchBlog } = useSearchForm({})
     </div>
 
     <!-- プロフィールエリア レスポンシブ -->
-<div :class="$style.profile__responsive">
-  <ProfileArea />
-</div>
-
+    <div :class="$style.profile__responsive">
+      <ProfileArea />
+    </div>
 
     <!-- 検索フォーム レスポンシブ -->
     <div :class="$style['search__responsive']">

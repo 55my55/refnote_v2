@@ -39,10 +39,7 @@ export const getPosts = async (page = 1): Promise<BlogDataType> => {
  * 詳細取得
  * - slug(id) + draftKey 付きで取得したいケースも想定してラップ
  */
-export const getPostBySlug = async (
-  id: string,
-  draftKey = ''
-): Promise<BlogItemType> => {
+export const getPostBySlug = async (id: string, draftKey = ''): Promise<BlogItemType> => {
   if (!id) throw new Error('id is required for getPostBySlug')
   return await getBlogByApi(id, draftKey)
 }
@@ -53,7 +50,7 @@ export const getPostBySlug = async (
  */
 export const getBlogTargetMonthService = async (
   page: number,
-  targetDate: string
+  targetDate: string,
 ): Promise<BlogDataType> => {
   const offset = (page - 1) * BLOG_SHOW_COUNT
 
@@ -69,7 +66,7 @@ export const getBlogTargetMonthService = async (
  */
 export const isBlogsArchivesService = async (
   startDate: string,
-  endDate: string
+  endDate: string,
 ): Promise<boolean> => {
   const queryStartDate = subtractOneDayLogic(startDate)
   const queryEndDate = addOneDayLogic(endDate)

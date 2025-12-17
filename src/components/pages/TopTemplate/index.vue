@@ -37,9 +37,7 @@ const { metaData } = useMetaData({})
 <template>
   <BasePostPageLayout :meta-data="metaData">
     <div v-if="pending" :class="styles.status">読み込み中です...</div>
-    <div v-else-if="error" :class="styles.status">
-      データの取得に失敗しました
-    </div>
+    <div v-else-if="error" :class="styles.status">データの取得に失敗しました</div>
     <template v-else>
       <div v-if="hasBlogs">
         <!-- PC向け一覧 -->
@@ -63,11 +61,7 @@ const { metaData } = useMetaData({})
       <div v-else :class="styles.status">記事がありません</div>
 
       <!-- ページネーション -->
-      <Pagination
-        v-if="hasPagination"
-        :total-count="totalCount"
-        link="/page/"
-      />
+      <Pagination v-if="hasPagination" :total-count="totalCount" link="/page/" />
     </template>
   </BasePostPageLayout>
 </template>

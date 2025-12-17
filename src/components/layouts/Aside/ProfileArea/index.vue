@@ -39,7 +39,7 @@ const snsLinks = computed(() =>
     { icon: XIcon, url: profile.value?.twitter },
     { icon: GithubIcon, url: profile.value?.github },
     { icon: FaceBookIcon, url: profile.value?.facebook },
-  ].filter((item) => !!item.url)
+  ].filter((item) => !!item.url),
 )
 </script>
 
@@ -74,16 +74,8 @@ const snsLinks = computed(() =>
       <div :class="styles.border" />
 
       <ul v-if="snsLinks.length" :class="styles.sns">
-        <li
-          v-for="(sns, index) in snsLinks"
-          :key="`sns-${index}`"
-          :class="styles.sns__icon"
-        >
-          <a
-            :href="sns.url"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <li v-for="(sns, index) in snsLinks" :key="`sns-${index}`" :class="styles.sns__icon">
+          <a :href="sns.url" target="_blank" rel="noopener noreferrer">
             <component :is="sns.icon" />
           </a>
         </li>

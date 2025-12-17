@@ -52,7 +52,6 @@ const copyUrl = async () => {
 
 <template>
   <div :class="styles.container">
-
     <div :class="styles.buttons">
       <a
         :href="xShareUrl"

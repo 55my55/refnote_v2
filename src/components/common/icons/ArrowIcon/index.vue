@@ -4,7 +4,6 @@
  * @package Component
  */
 
-
 type ArrowIconProps = {
   size?: number
   color?: string

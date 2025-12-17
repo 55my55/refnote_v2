@@ -23,14 +23,12 @@ const route = useRoute()
 
 const categoryParam = route.params.categoryId as string
 const pageParam = route.params.page as string | string[] | undefined
-const pageNum =
-  Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1
+const pageNum = Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1
 
 const offset = (pageNum - 1) * BLOG_SHOW_COUNT
 
 // useSetData でまとめて状態管理
-const { setBlogData, setCategoryData, setProfileData, setArchiveData } =
-  useSetData()
+const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
 const { setBlogData: setBlogDataProvider } = useBlogActions()
 
 const {
@@ -49,9 +47,7 @@ const {
     getArchiveListService(),
   ])
 
-  const targetCategory = categories.find(
-    (c) => c.slug === categoryParam || c.id === categoryParam
-  )
+  const targetCategory = categories.find((c) => c.slug === categoryParam || c.id === categoryParam)
   const categoryFilterId = targetCategory?.id ?? ''
 
   const blogData =
@@ -65,9 +61,7 @@ const {
 const categories = computed(() => pageData.value?.categories ?? [])
 const blogData = computed(() => pageData.value?.blogData ?? initBlogData)
 const targetCategory = computed(() =>
-  categories.value.find(
-    (c) => c.slug === categoryParam || c.id === categoryParam
-  )
+  categories.value.find((c) => c.slug === categoryParam || c.id === categoryParam),
 )
 
 // 取得したデータを状態に反映
@@ -76,14 +70,8 @@ watchEffect(() => {
   setCategoryData(pageData.value.categories)
   setProfileData(pageData.value.profile)
   setArchiveData(pageData.value.archiveList)
-  setBlogData(
-    pageData.value.blogData.blogList,
-    pageData.value.blogData.totalCount
-  )
-  setBlogDataProvider(
-    pageData.value.blogData.blogList,
-    pageData.value.blogData.totalCount
-  )
+  setBlogData(pageData.value.blogData.blogList, pageData.value.blogData.totalCount)
+  setBlogDataProvider(pageData.value.blogData.blogList, pageData.value.blogData.totalCount)
 })
 
 // パンくず用のカテゴリ名
@@ -92,14 +80,9 @@ const categoryName = computed(() => {
 })
 
 // テンプレート用にそのまま使う値
-const categoryIdForLink = computed(
-  () => targetCategory.value?.id ?? categoryParam
-)
+const categoryIdForLink = computed(() => targetCategory.value?.id ?? categoryParam)
 </script>
 
 <template>
-  <CategoryTemplate
-    :categoryId="categoryIdForLink"
-    :breadName="categoryName"
-  />
+  <CategoryTemplate :categoryId="categoryIdForLink" :breadName="categoryName" />
 </template>

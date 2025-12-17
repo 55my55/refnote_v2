@@ -4,7 +4,6 @@
  * @package Component
  */
 
-
 type CloseIconProps = {
   size?: number
   color?: string

@@ -15,7 +15,7 @@ import { initProfileState } from '~/constants/initState'
  * useSetData
  */
 export const useSetData = () => {
-// ★ 各ドメインの状態
+  // ★ 各ドメインの状態
   const blogList = useState<BlogItemType[]>('blogList', () => [])
   const blogTotalCount = useState<number>('blogTotalCount', () => 0)
   const categories = useState<CategoryType[]>('categories', () => [])

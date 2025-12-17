@@ -5,7 +5,7 @@ import {
   ArchiveStateKey,
   ArchiveActionsKey,
   type ArchiveStateType,
-  type ArchiveActions
+  type ArchiveActions,
 } from './ArchiveProviderInjectionKey'
 
 // 初期状態

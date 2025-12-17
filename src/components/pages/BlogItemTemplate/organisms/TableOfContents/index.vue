@@ -22,11 +22,7 @@ const scrollToHeading = (id: string) => {
 </script>
 
 <template>
-  <div
-    v-if="tableOfContents.length > 0"
-    :class="$style.container"
-    id="create-table-of-contents"
-  >
+  <div v-if="tableOfContents.length > 0" :class="$style.container" id="create-table-of-contents">
     <h4>目次</h4>
     <ul :class="$style.lists" id="lists">
       <li

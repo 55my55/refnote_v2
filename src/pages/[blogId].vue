@@ -31,9 +31,7 @@ type BlogItemPageData = {
  */
 const route = useRoute()
 const blogId = computed(() => route.params.blogId as string)
-const draftKey = computed(
-  () => (route.query.draftKey as string | undefined) ?? ''
-)
+const draftKey = computed(() => (route.query.draftKey as string | undefined) ?? '')
 
 /**
  * グローバル状態 setter（カテゴリ / プロフィール / アーカイブ）
@@ -51,13 +49,12 @@ const { data } = await useAsyncData<BlogItemPageData>(
       console.time('blogItem-fetch')
 
       // ブログ記事詳細・カテゴリ・プロフィール・アーカイブを並列取得
-      const [blogDetailData, categories, profile, archiveList] =
-        await Promise.all([
-          getBlogByApi(blogId.value, draftKey.value),
-          getCategoriesApi(),
-          getProfileByApi(),
-          getArchiveListService(),
-        ])
+      const [blogDetailData, categories, profile, archiveList] = await Promise.all([
+        getBlogByApi(blogId.value, draftKey.value),
+        getCategoriesApi(),
+        getProfileByApi(),
+        getArchiveListService(),
+      ])
 
       console.timeEnd('blogItem-fetch')
 
@@ -114,7 +111,7 @@ const { data } = await useAsyncData<BlogItemPageData>(
         draftKey: draftKey.value,
       }
     }
-  }
+  },
 )
 
 /**
@@ -128,7 +125,7 @@ watch(
     if (value.profile) setProfileData(value.profile)
     if (value.archiveList.length) setArchiveData(value.archiveList)
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 /**
@@ -143,14 +140,12 @@ watch(
       })
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>
 
 <template>
-  <Error404Template
-    v-if="!data || !data.blogItem"
-  />
+  <Error404Template v-if="!data || !data.blogItem" />
   <BlogItemTemplate
     v-else
     :blog-item="data.blogItem"

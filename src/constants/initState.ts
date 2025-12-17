@@ -32,7 +32,7 @@ export const initBlogItem: BlogItemType = {
   description: '',
   image: initImageState,
   categories: [],
-  slug: '', 
+  slug: '',
 }
 
 /** カテゴリ 1 件分の初期値 */
@@ -43,7 +43,7 @@ export const initCategoryData: CategoryType = {
   updatedAt: '',
   publishedAt: '',
   revisedAt: '',
-  slug: '', 
+  slug: '',
 }
 
 /** プロフィール情報の初期値 */
@@ -81,6 +81,6 @@ export const initFixedArticleData: FixedArticleType = {
   revisedAt: '',
   title: '',
   body: '',
-  slug: '', 
+  slug: '',
   image: initImageState,
 }

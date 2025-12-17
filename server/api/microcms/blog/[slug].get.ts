@@ -152,5 +152,4 @@ export default defineEventHandler<BlogItemType>(async (event) => {
       statusMessage: 'Failed to fetch blog by slug from microCMS',
     })
   }
-  }
-)
+})

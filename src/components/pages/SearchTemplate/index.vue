@@ -35,31 +35,17 @@ const { metaData } = useMetaData({ title: props.breadName })
 
       <!-- 検索フォーム -->
       <div :class="styles.input">
-        <SearchInputForm
-          :text="searchText"
-          placeholder="検索"
-          :on-change="onChange"
-        />
+        <SearchInputForm :text="searchText" placeholder="検索" :on-change="onChange" />
       </div>
 
       <!-- 検索フォーム レスポンシブ -->
       <div :class="styles.input__responsive">
-        <SearchInputForm
-          :text="searchText"
-          placeholder="検索"
-          :size="32"
-          :on-change="onChange"
-        />
+        <SearchInputForm :text="searchText" placeholder="検索" :size="32" :on-change="onChange" />
       </div>
 
       <!-- 検索フォーム SP -->
       <div :class="styles.input__sp">
-        <SearchInputForm
-          :text="searchText"
-          placeholder="検索"
-          :size="24"
-          :on-change="onChange"
-        />
+        <SearchInputForm :text="searchText" placeholder="検索" :size="24" :on-change="onChange" />
       </div>
 
       <!-- 検索結果一覧 PC -->

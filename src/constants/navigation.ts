@@ -10,12 +10,12 @@
  * ページリンク（UI で使うナビゲーション用）
  */
 export const NAVIGATION_LINK = {
-  TOP: '/',               // トップページ
-  ABOUT: '/about',        // ブログについて
-  PROFILE: '/profile',    // プロフィール
-  POLICY: '/policy',      // プライバシーポリシー
-  TERM: '/term',          // 利用規約
-  SEARCH: '/search',      // 検索ページ
+  TOP: '/', // トップページ
+  ABOUT: '/about', // ブログについて
+  PROFILE: '/profile', // プロフィール
+  POLICY: '/policy', // プライバシーポリシー
+  TERM: '/term', // 利用規約
+  SEARCH: '/search', // 検索ページ
 } as const
 
 /**

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MetaHeadType } from '@/types/MetaHead' 
+import type { MetaHeadType } from '@/types/MetaHead'
 
 type Props = {
   metaData: MetaHeadType

@@ -15,15 +15,12 @@ import {
 
 import { NAVIGATION_LINK, ROUTER_PATH_NAME } from '@/constants/navigation'
 
-
 /**
  * ページ番号配列作成
  * @param totalCount
  */
 export const createPageArrayLogic = (totalCount: number): number[] => {
-  return [...Array(Math.floor(totalCount / BLOG_SHOW_COUNT) + 1)].map(
-    (_, i) => i + 1
-  )
+  return [...Array(Math.floor(totalCount / BLOG_SHOW_COUNT) + 1)].map((_, i) => i + 1)
 }
 
 /**

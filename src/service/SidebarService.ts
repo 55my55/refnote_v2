@@ -19,12 +19,9 @@ export const getSidebarDataService = async (): Promise<SidebarDataType> => {
     getArchiveListService(),
   ])
 
-  const categories =
-    categoriesRes.status === 'fulfilled' ? categoriesRes.value : []
-  const profile =
-    profileRes.status === 'fulfilled' ? profileRes.value : initProfileState
-  const archiveList =
-    archiveRes.status === 'fulfilled' ? archiveRes.value : []
+  const categories = categoriesRes.status === 'fulfilled' ? categoriesRes.value : []
+  const profile = profileRes.status === 'fulfilled' ? profileRes.value : initProfileState
+  const archiveList = archiveRes.status === 'fulfilled' ? archiveRes.value : []
 
   return {
     categories,

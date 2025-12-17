@@ -28,7 +28,9 @@
   letter-spacing: 0.1em;
   min-width: 36px;
   height: 36px;
-  transition: color 0.25s, background-color 0.25s;
+  transition:
+    color 0.25s,
+    background-color 0.25s;
 }
 .icon:hover {
   background: var(--c-main);

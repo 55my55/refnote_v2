@@ -47,10 +47,7 @@ export const changeShowYearMonthLogic = (date: string): string => {
 }
 
 // 減算処理 (月毎)
-export const subtractMonthDateLogic = (
-  date: string,
-  diffMonth: number
-): string => {
+export const subtractMonthDateLogic = (date: string, diffMonth: number): string => {
   return dayjs(date).subtract(diffMonth, 'M').format()
 }
 

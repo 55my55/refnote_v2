@@ -14,9 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 // はてなブックマークのシェアURL
 const hatenaShareUrl = computed(() => {
-  return `https://b.hatena.ne.jp/entry/panel/?url=${encodeURIComponent(
-    props.shareUrl,
-  )}`
+  return `https://b.hatena.ne.jp/entry/panel/?url=${encodeURIComponent(props.shareUrl)}`
 })
 
 const onClick = () => {
@@ -26,11 +24,7 @@ const onClick = () => {
 </script>
 
 <template>
-  <button
-    type="button"
-    class="hatena-share-button"
-    @click="onClick"
-  >
+  <button type="button" class="hatena-share-button" @click="onClick">
     <!-- 本家の B! アイコン代わり。後でSVGアイコンに差し替えてOK -->
     <span class="hatena-share-button__icon">B!</span>
   </button>

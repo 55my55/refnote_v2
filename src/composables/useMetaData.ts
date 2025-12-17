@@ -6,7 +6,6 @@
  * UI 層から SEO 設定を切り離し、集中管理するための分離レイヤー
  */
 
-
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 /* logics */
@@ -33,7 +32,6 @@ export const useMetaData = (param: UseMetaDataParam) => {
 
   // router
   const router = useRouter()
-
 
   const metaData = ref<MetaHeadType>({
     title: selectMetaDataTitleLogic({ router, title, errorFlg }),

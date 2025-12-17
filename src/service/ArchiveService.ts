@@ -27,8 +27,8 @@ import type { ArchiveType } from '@/types/Archive'
  * - ブログ開始月〜現在月までを走査し、記事がある月だけ ArchiveType に整形して返す
  */
 export const getArchiveListService = async (): Promise<ArchiveType[]> => {
-  const currentDate = getCurrentDateLogic()      // 現在日時
-  const startBlogDate = getBlogStartDateLogic()  // ブログ開始日時
+  const currentDate = getCurrentDateLogic() // 現在日時
+  const startBlogDate = getBlogStartDateLogic() // ブログ開始日時
 
   // ブログ開始前ならアーカイブなし
   if (currentDate < startBlogDate) return []
@@ -48,14 +48,14 @@ export const getArchiveListService = async (): Promise<ArchiveType[]> => {
     }
 
     const startMonth = getStartOfMonthLogic(targetDate) // 月初
-    const endMonth = getEndOfMonthLogic(targetDate)     // 月末
+    const endMonth = getEndOfMonthLogic(targetDate) // 月末
 
     // 対象月に記事が存在する場合のみアーカイブに追加
     if (await isBlogsArchivesService(startMonth, endMonth)) {
       archiveList.push({
         originDate: changeYearMonthDateLogic(startMonth), // YYYY-MM-DD
-        linkDate:   changeYearMonthLogic(startMonth),      // YYYY-MM
-        showDate:   changeShowYearMonthLogic(startMonth),  // 表示用（例: 2024年01月）
+        linkDate: changeYearMonthLogic(startMonth), // YYYY-MM
+        showDate: changeShowYearMonthLogic(startMonth), // 表示用（例: 2024年01月）
       })
     }
   }

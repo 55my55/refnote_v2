@@ -16,9 +16,7 @@ const props = withDefaults(defineProps<FacebookShareButtonProps>(), {
  * Facebook のシェア URL
  */
 const shareLink = computed(() => {
-  return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-    props.shareUrl
-  )}`
+  return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(props.shareUrl)}`
 })
 
 /**
@@ -34,17 +32,8 @@ const facebookLogoSrc = new URL('@/svgs/facebook.svg', import.meta.url).href
 </script>
 
 <template>
-  <a
-    :href="shareLink"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="share-btn"
-  >
-    <img
-      :src="facebookLogoSrc"
-      alt="Facebookでシェア"
-      :style="iconStyle"
-    />
+  <a :href="shareLink" target="_blank" rel="noopener noreferrer" class="share-btn">
+    <img :src="facebookLogoSrc" alt="Facebookでシェア" :style="iconStyle" />
   </a>
 </template>
 

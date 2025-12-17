@@ -44,7 +44,7 @@ const { data } = await useAsyncData(
       profile,
       archiveList,
     }
-  }
+  },
 )
 
 // グローバル状態（useSetData）に流し込む

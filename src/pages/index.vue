@@ -9,8 +9,7 @@ import { getProfileByApi } from '~/apis/ProfileApi'
 import type { BlogDataType } from '~/types/Blog'
 import type { SidebarDataType } from '~/types/Sidebar'
 
-const { setBlogData, setCategoryData, setProfileData, setArchiveData } =
-  useSetData()
+const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
 
 // ブログ一覧 + サイドバー用データをまとめて SSR で取得
 const {

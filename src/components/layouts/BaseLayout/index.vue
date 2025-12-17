@@ -42,11 +42,9 @@ const {
 } = useModal()
 
 // 検索フォーム（モーダル用）
-const {
-  searchText,
-  onChangeSearchText,
-  onKeyUpSearchBlogModal,
-} = useSearchForm({ handleCloseSearchModal })
+const { searchText, onChangeSearchText, onKeyUpSearchBlogModal } = useSearchForm({
+  handleCloseSearchModal,
+})
 </script>
 
 <template>

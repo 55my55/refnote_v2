@@ -48,7 +48,7 @@ const { shareUrl } = useShareUrl()
         />
         <ShareButtons :url="shareUrl" title="プロフィール" />
       </div>
-      
+
       <main :class="styles.main">
         <HighlightBody :highlightedBody="props.highlightedBody" />
       </main>

@@ -3,15 +3,14 @@
  * @package config
  */
 import axios from 'axios'
+import { useRuntimeConfig } from '#imports'
 
-// import.meta.env で環境変数を読む
-const X_API_KEY: string =
-  (import.meta.env.NUXT_MICROCMS_API_KEY as string | undefined) || ''
+const config = useRuntimeConfig()
 
 const globalAxios = axios.create({
   headers: {
     'Content-Type': 'application/json',
-    'X-API-KEY': X_API_KEY,
+    'X-API-KEY': config.microcmsApiKey,
   },
 })
 

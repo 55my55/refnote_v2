@@ -29,22 +29,19 @@ const { setCategoryData, setArchiveData, setProfileData } = useSetData()
 /**
  * カテゴリー・アーカイブの取得
  */
-const { data } = await useAsyncData<Error404PageData>(
-  'error-404-page',
-  async () => {
-    const [categories, archiveList, profile] = await Promise.all([
-      getCategoriesApi(),
-      getArchiveListService(),
-      getProfileByApi(),
-    ])
+const { data } = await useAsyncData<Error404PageData>('error-404-page', async () => {
+  const [categories, archiveList, profile] = await Promise.all([
+    getCategoriesApi(),
+    getArchiveListService(),
+    getProfileByApi(),
+  ])
 
-    return {
-      categories,
-      archiveList,
-      profile,
-    }
+  return {
+    categories,
+    archiveList,
+    profile,
   }
-)
+})
 
 /**
  * 取得データをグローバル状態に反映
@@ -57,7 +54,7 @@ watch(
     setArchiveData(value.archiveList)
     setProfileData(value.profile)
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 /**

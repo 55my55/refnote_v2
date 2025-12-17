@@ -65,7 +65,7 @@ export const getBlogsApi = async (offset: number): Promise<BlogDataType> => {
  */
 export const getBlogsContainCategoryApi = async (
   offset: number,
-  categoryId: string
+  categoryId: string,
 ): Promise<BlogDataType> => {
   let blogData: BlogDataType = { ...initBlogData }
 
@@ -96,7 +96,7 @@ export const getBlogsContainCategoryApi = async (
 export const getBlogContainArchiveMonthApi = async (
   offset: number,
   startDate: string,
-  endDate: string
+  endDate: string,
 ): Promise<BlogDataType> => {
   let blogData: BlogDataType = { ...initBlogData }
 
@@ -124,7 +124,7 @@ export const getBlogContainArchiveMonthApi = async (
  */
 export const getBlogArchivesCountApi = async (
   startDate: string,
-  endDate: string
+  endDate: string,
 ): Promise<number | undefined> => {
   try {
     const res = await fetchBlogs({
@@ -145,10 +145,7 @@ export const getBlogArchivesCountApi = async (
  * @param id       記事 ID（slug）
  * @param draftKey プレビューモード用 draftKey（任意）
  */
-export const getBlogByApi = async (
-  id: string,
-  draftKey = ''
-): Promise<BlogItemType> => {
+export const getBlogByApi = async (id: string, draftKey = ''): Promise<BlogItemType> => {
   let blogDetail: BlogItemType = { ...initBlogItem }
 
   if (!id) {

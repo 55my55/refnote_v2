@@ -4,7 +4,6 @@
  * @package Component
  */
 
-
 type FaceBookIconProps = {
   size?: number
   color?: string

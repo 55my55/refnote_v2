@@ -62,26 +62,26 @@ export default defineEventHandler(async (event) => {
 
   const fetchSingle = async () =>
     await $fetch<Record<string, unknown>>(`${baseUrl}/profile`, {
-        headers: {
-          'X-MICROCMS-API-KEY': config.microcmsApiKey,
-        },
-        params: {
-          depth: 1,
-          fields: PROFILE_FIELDS,
-        },
-      })
+      headers: {
+        'X-MICROCMS-API-KEY': config.microcmsApiKey,
+      },
+      params: {
+        depth: 1,
+        fields: PROFILE_FIELDS,
+      },
+    })
 
-    const fetchList = async () =>
-      await $fetch<MicroCMSProfileListResponse>(`${baseUrl}/profiles`, {
-        headers: {
-          'X-MICROCMS-API-KEY': config.microcmsApiKey,
-        },
-        params: { limit: 1, depth: 1, fields: PROFILE_FIELDS },
-      })
+  const fetchList = async () =>
+    await $fetch<MicroCMSProfileListResponse>(`${baseUrl}/profiles`, {
+      headers: {
+        'X-MICROCMS-API-KEY': config.microcmsApiKey,
+      },
+      params: { limit: 1, depth: 1, fields: PROFILE_FIELDS },
+    })
 
-    try {
-      // single -> list の順で試す。どちらも失敗したら初期値を返す
-      const resSingle = await fetchSingle().catch(() => null)
+  try {
+    // single -> list の順で試す。どちらも失敗したら初期値を返す
+    const resSingle = await fetchSingle().catch(() => null)
     if (resSingle) {
       const normalized = { profile: normalizeProfile(resSingle) }
       setCache(cacheKey, normalized, 5 * 60 * 1000) // 5 分キャッシュ
@@ -95,9 +95,8 @@ export default defineEventHandler(async (event) => {
     setCache(cacheKey, normalized, 5 * 60 * 1000)
     return normalized
   } catch (error) {
-      console.error(error)
-      // 失敗時も初期値を返して UI を壊さない
-      return { profile: initProfileState }
-    }
+    console.error(error)
+    // 失敗時も初期値を返して UI を壊さない
+    return { profile: initProfileState }
   }
-)
+})

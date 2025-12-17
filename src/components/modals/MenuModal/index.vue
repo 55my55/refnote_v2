@@ -24,15 +24,9 @@ const props = defineProps<{
       <div :class="$style.content_base">
         <ul :class="$style.links">
           <li :class="$style.title">MENU</li>
-          <li :class="$style.link" @click="props.handleHomeLink">
-            ホーム
-          </li>
-          <li :class="$style.link" @click="props.handleAboutLink">
-            このブログについて
-          </li>
-          <li :class="$style.link" @click="props.handleProfileLink">
-            プロフィール
-          </li>
+          <li :class="$style.link" @click="props.handleHomeLink">ホーム</li>
+          <li :class="$style.link" @click="props.handleAboutLink">このブログについて</li>
+          <li :class="$style.link" @click="props.handleProfileLink">プロフィール</li>
         </ul>
 
         <div :class="$style.close" @click="props.handleCloseMenuModal">

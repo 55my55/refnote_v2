@@ -30,35 +30,32 @@ const { setCategoryData, setProfileData, setArchiveData } = useSetData()
 /**
  * プロフィール＋関連データ取得
  */
-const { data, error } = await useAsyncData<ProfilePageData>(
-  'profile-page',
-  async () => {
-    // プロフィール／カテゴリ／アーカイブを並列取得
-    const [profile, categories, archiveList] = await Promise.all([
-      getProfileByApi(),
-      getCategoriesApi(),
-      getArchiveListService(),
-    ])
+const { data, error } = await useAsyncData<ProfilePageData>('profile-page', async () => {
+  // プロフィール／カテゴリ／アーカイブを並列取得
+  const [profile, categories, archiveList] = await Promise.all([
+    getProfileByApi(),
+    getCategoriesApi(),
+    getArchiveListService(),
+  ])
 
-    // cheerio は ESM なので動的 import
-    const { load } = await import('cheerio')
-    const $ = load(profile.contents)
+  // cheerio は ESM なので動的 import
+  const { load } = await import('cheerio')
+  const $ = load(profile.contents)
 
-    // シンタックスハイライト適用
-    $('pre code').each((_, elm) => {
-      const result = hljs.highlightAuto($(elm).text())
-      $(elm).html(result.value)
-      $(elm).addClass('hljs')
-    })
+  // シンタックスハイライト適用
+  $('pre code').each((_, elm) => {
+    const result = hljs.highlightAuto($(elm).text())
+    $(elm).html(result.value)
+    $(elm).addClass('hljs')
+  })
 
-    return {
-      profile,
-      highlightedBody: $.html(),
-      categories,
-      archiveList,
-    }
+  return {
+    profile,
+    highlightedBody: $.html(),
+    categories,
+    archiveList,
   }
-)
+})
 
 /**
  * 取得結果をグローバル状態へ反映
@@ -71,15 +68,13 @@ watch(
     if (value.profile) setProfileData(value.profile)
     if (value.archiveList.length) setArchiveData(value.archiveList)
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>
 
 <template>
   <!-- エラー時 -->
-  <div v-if="error">
-    読み込みに失敗しました。
-  </div>
+  <div v-if="error">読み込みに失敗しました。</div>
 
   <!-- 正常時 -->
   <ProfileTemplate
@@ -89,7 +84,5 @@ watch(
   />
 
   <!-- ローディング中 -->
-  <div v-else>
-    読み込み中…
-  </div>
+  <div v-else>読み込み中…</div>
 </template>

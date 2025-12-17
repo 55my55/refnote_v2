@@ -17,9 +17,7 @@ type MicroCMSPreviewResponse = {
  * BASE_URL
  * NEXT_PUBLIC_BASE_URL の代わりに NUXT_PUBLIC_BASE_URL を参照
  */
-const BASE_URL = `${
-  process.env.NUXT_PUBLIC_BASE_URL || 'http://localhost:3000/'
-}blogs/`
+const BASE_URL = `${process.env.NUXT_PUBLIC_BASE_URL || 'http://localhost:3000/'}blogs/`
 
 export default defineEventHandler(async (event) => {
   // クエリ取得
@@ -35,9 +33,7 @@ export default defineEventHandler(async (event) => {
 
   // microCMS から該当記事を取得（id だけ確認できればOK）
   const content = await globalAxios
-    .get<MicroCMSPreviewResponse>(
-      `${BASE_URL}${slug}?fields=id&draftKey=${draftKey}`
-    )
+    .get<MicroCMSPreviewResponse>(`${BASE_URL}${slug}?fields=id&draftKey=${draftKey}`)
     .then((res) => res.data as MicroCMSPreviewResponse)
     .catch(() => null as MicroCMSPreviewResponse | null)
 
@@ -50,9 +46,7 @@ export default defineEventHandler(async (event) => {
    * draftKey をクエリに付けて対象ページへ 307 リダイレクトする。
    * フロント側では `route.query.draftKey` を見てプレビュー用取得を行う想定。
    */
-  const redirectPath = `/${content.id}?draftKey=${encodeURIComponent(
-    draftKey
-  )}`
+  const redirectPath = `/${content.id}?draftKey=${encodeURIComponent(draftKey)}`
 
   return sendRedirect(event, redirectPath, 307)
 })

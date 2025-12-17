@@ -17,8 +17,5 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div
-    :class="styles.contents"
-    v-html="props.highlightedBody"
-  ></div>
+  <div :class="styles.contents" v-html="props.highlightedBody"></div>
 </template>

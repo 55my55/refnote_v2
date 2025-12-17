@@ -22,9 +22,7 @@ import { NAVIGATION_LINK } from '@/constants/navigation'
       </NuxtLink>
     </ul>
 
-    <p :class="$style.copy">
-      © <span>2021 refnote.</span>
-    </p>
+    <p :class="$style.copy">© <span>2021 refnote.</span></p>
   </div>
 </template>
 

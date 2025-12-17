@@ -6,7 +6,6 @@
  * UI から状態管理と画面遷移を切り離すための責務レイヤー
  */
 
-
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { NAVIGATION_LINK } from '@/constants/navigation'

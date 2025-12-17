@@ -1,8 +1,5 @@
 import { defineEventHandler, getQuery, createError } from 'h3'
-import type {
-  BlogDataType,
-  MicroCMSBlogListResponse,
-} from '~/types/Blog'
+import type { BlogDataType, MicroCMSBlogListResponse } from '~/types/Blog'
 import type { CategoryType } from '~/types/Category'
 import { getCache, setCache } from '~/server/utils/simpleCache'
 
@@ -82,16 +79,16 @@ export default defineEventHandler(async (event) => {
     // microCMS の生レスポンス
     const res = await $fetch<MicroCMSBlogListResponse>(microcmsApiUrl, {
       headers: {
-          'X-MICROCMS-API-KEY': config.microcmsApiKey,
-        },
-        params: {
-          // 一覧は軽量化のため depth 1 + 必要フィールドのみ
-          depth: 1,
-          fields:
-            'id,title,slug,createdAt,updatedAt,publishedAt,revisedAt,description,image.url,image.width,image.height,categories',
-          ...queries,
-        },
-      })
+        'X-MICROCMS-API-KEY': config.microcmsApiKey,
+      },
+      params: {
+        // 一覧は軽量化のため depth 1 + 必要フィールドのみ
+        depth: 1,
+        fields:
+          'id,title,slug,createdAt,updatedAt,publishedAt,revisedAt,description,image.url,image.width,image.height,categories',
+        ...queries,
+      },
+    })
 
     // ★ 生レスポンスを BlogDataType に整形し、カテゴリを正規化
     const data: BlogDataType = {
@@ -110,7 +107,7 @@ export default defineEventHandler(async (event) => {
     console.error(err)
     throw createError({
       statusCode: 500,
-        statusMessage: 'Failed to fetch blogs from microCMS',
-      })
-    }
+      statusMessage: 'Failed to fetch blogs from microCMS',
+    })
+  }
 })

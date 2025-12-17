@@ -34,10 +34,7 @@ const { metaData } = useMetaData({
 </script>
 
 <template>
-  <BaseFixedPageLayout
-    :metaData="metaData"
-    :breadName="title"
-  >
+  <BaseFixedPageLayout :metaData="metaData" :breadName="title">
     <!-- ページタイトル -->
     <PageTitle :title="title" />
 

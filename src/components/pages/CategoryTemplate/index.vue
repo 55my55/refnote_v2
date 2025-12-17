@@ -30,10 +30,7 @@ const { metaData } = useMetaData({
 </script>
 
 <template>
-  <BasePostPageLayout
-    :metaData="metaData"
-    :breadName="breadName"
-  >
+  <BasePostPageLayout :metaData="metaData" :breadName="breadName">
     <!-- ページタイトル -->
     <PageTitle :title="`「${breadName}」の記事一覧`" />
 

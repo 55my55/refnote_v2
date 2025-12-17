@@ -23,7 +23,7 @@ export const useSearchTemplate = () => {
 
   // 検索キーワードに Hit したブログ記事一覧
   const showBlogList = ref(
-    searchBlogListLogic(blogList, queryText.value) // ← .value なし
+    searchBlogListLogic(blogList, queryText.value), // ← .value なし
   )
 
   /**
@@ -43,7 +43,7 @@ export const useSearchTemplate = () => {
     () => [queryText.value, blogList] as const,
     ([keyword, list]) => {
       showBlogList.value = searchBlogListLogic(list, keyword)
-    }
+    },
   )
 
   return {

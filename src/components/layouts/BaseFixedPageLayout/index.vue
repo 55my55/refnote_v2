@@ -23,10 +23,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <BaseLayout
-    :meta-data="props.metaData"
-    :bread-name="props.breadName"
-  >
+  <BaseLayout :meta-data="props.metaData" :bread-name="props.breadName">
     <article :class="styles.article">
       <slot />
     </article>

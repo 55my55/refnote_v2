@@ -24,17 +24,13 @@ const archiveList = computed(() => archiveListState.value ?? [])
 /**
  * 奇数・偶数でクラスを切り替えるユーティリティ
  */
-const getRowClass = (index: number) =>
-  index % 2 === 0 ? styles.archive : styles.archive_even
+const getRowClass = (index: number) => (index % 2 === 0 ? styles.archive : styles.archive_even)
 </script>
 
 <template>
   <BasicAsidePartsArea title="アーカイブ">
     <ul :class="styles.container">
-      <li
-        v-for="(archive, i) in archiveList"
-        :key="`${archive.originDate}_${i}`"
-      >
+      <li v-for="(archive, i) in archiveList" :key="`${archive.originDate}_${i}`">
         <NuxtLink :to="`/archive/${archive.linkDate}/page/1`">
           <div :class="getRowClass(i)">
             <span>&gt;&nbsp;&nbsp;{{ archive.showDate }}</span>

@@ -32,18 +32,14 @@ const route = useRoute()
 const dateParam = route.params.date as string
 const pageParam = route.params.page as string | string[] | undefined
 
-const pageNum = Math.max(
-  1,
-  Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1
-)
+const pageNum = Math.max(1, Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1)
 
 const offset = (pageNum - 1) * BLOG_SHOW_COUNT
 
 /**
  * 画面で使う状態を一括管理する composable
  */
-const { setBlogData, setCategoryData, setProfileData, setArchiveData } =
-  useSetData()
+const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
 // BlogProvider にもデータを流す（ArchiveTemplate は provider state を参照）
 const { setBlogData: setBlogDataProvider } = useBlogActions()
 
@@ -73,14 +69,8 @@ watchEffect(() => {
   setCategoryData(pageData.value.categories)
   setProfileData(pageData.value.profile)
   setArchiveData(pageData.value.archiveList)
-  setBlogData(
-    pageData.value.blogData.blogList,
-    pageData.value.blogData.totalCount
-  )
-  setBlogDataProvider(
-    pageData.value.blogData.blogList,
-    pageData.value.blogData.totalCount
-  )
+  setBlogData(pageData.value.blogData.blogList, pageData.value.blogData.totalCount)
+  setBlogDataProvider(pageData.value.blogData.blogList, pageData.value.blogData.totalCount)
 })
 
 /**

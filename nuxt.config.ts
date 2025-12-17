@@ -38,18 +38,15 @@ export default defineNuxtConfig({
   vite: {
     resolve: {
       alias: {
-
         // SCSS 変数・mixin 用エイリアス
-        '@variable': fileURLToPath(
-          new URL('./src/styles/variable.scss', import.meta.url)
-        ),
+        '@variable': fileURLToPath(new URL('./src/styles/variable.scss', import.meta.url)),
       },
     },
   },
 
   modules: ['@nuxt/image'],
 
-    image: {
+  image: {
     domains: ['images.microcms-assets.io'],
   },
 })

@@ -25,16 +25,11 @@ const { shareUrl } = useShareUrl()
 </script>
 
 <template>
-  <BasePostPageLayout
-    :metaData="metaData"
-    :breadName="blogItem.title"
-  >
+  <BasePostPageLayout :metaData="metaData" :breadName="blogItem.title">
     <section :class="$style.container">
       <div v-if="draftKey">
         現在プレビューモードで閲覧中です。
-        <NuxtLink :to="`/api/cancel-preview?id=${blogItem.id}`">
-          プレビューを解除
-        </NuxtLink>
+        <NuxtLink :to="`/api/cancel-preview?id=${blogItem.id}`"> プレビューを解除 </NuxtLink>
       </div>
 
       <!-- タイトル・カテゴリ・日時 -->
@@ -54,20 +49,16 @@ const { shareUrl } = useShareUrl()
         />
       </div>
 
-
-          <!-- SNSシェアボタン 記事最下層 -->
-          <ShareButtons :url="shareUrl" :title="blogItem.title" />
+      <!-- SNSシェアボタン 記事最下層 -->
+      <ShareButtons :url="shareUrl" :title="blogItem.title" />
 
       <main :class="$style.main">
         <div :class="$style.rightBar">
-
-
           <!-- 目次 -->
           <TableOfContents :tableOfContents="tableOfContents" />
 
           <!-- 記事本文 -->
           <HighlightBody :highlightedBody="highlightedBody" />
-
         </div>
       </main>
     </section>

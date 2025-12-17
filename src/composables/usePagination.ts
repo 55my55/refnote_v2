@@ -6,7 +6,6 @@
  * UI のページ番号計算を分離し、再利用可能な状態管理を実現する
  */
 
-
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -38,7 +37,7 @@ export const usePagination = () => {
         currentPage.value = 1
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   return {
