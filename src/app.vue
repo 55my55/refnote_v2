@@ -1,9 +1,11 @@
-<template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-</template>
-
 <script setup lang="ts">
-// This file enables the use of layouts and pages in the src directory.
+import Providers from '~/providers/index.vue'
 </script>
+
+<template>
+  <Providers>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </Providers>
+</template>

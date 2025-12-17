@@ -1,0 +1,19 @@
+@use './reset.scss';
+@use './common.scss';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: #fdfdfd;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}

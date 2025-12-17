@@ -1,0 +1,53 @@
+.container {
+  margin-top: 18px;
+}
+.title {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.button {
+  height: 32px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.button:hover {
+  filter: brightness(0.92);
+}
+.button:active {
+  transform: translateY(1px);
+}
+.icon {
+  line-height: 1;
+}
+.x {
+  background: #111;
+}
+.facebook {
+  background: #3b5998;
+}
+.hatena {
+  background: #4b79c9;
+}
+.copy {
+  background: #ef4444;
+}
+.line {
+  background: #06c755;
+}
+/*# sourceMappingURL=styles.module.min.css.map */

@@ -1,0 +1,25 @@
+@use '@variable' as *;
+
+/* PC向け一覧 */
+.blogItem {
+  display: block;
+
+  @include mq(lg) {
+    display: none;
+  }
+}
+
+/* SP向け一覧 */
+.blogItem__responsive {
+  display: none;
+
+  @include mq(lg) {
+    display: block;
+  }
+}
+
+.status {
+  padding: 24px 0;
+  text-align: center;
+  color: #333;
+}

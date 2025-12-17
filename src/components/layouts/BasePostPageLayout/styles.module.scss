@@ -1,0 +1,18 @@
+@use '@variable' as *;
+
+.article {
+  width: 760px;
+  padding: 30px;
+
+  @include mq(xl) {
+    width: 100%;
+  }
+}
+
+.aside {
+  width: 300px;
+
+  @include mq(xl) {
+    width: 100%;
+  }
+}

@@ -1,0 +1,122 @@
+@use '@variable' as *;
+
+// Header layout
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+// 細い帯
+.top {
+  height: 38px;
+  background: var(--c-main);
+
+  @include mq(xl) {
+    height: 24px;
+  }
+
+  @include mq(md) {
+    height: 16px;
+  }
+}
+
+// メインヘッダー
+.main {
+  display: flex;
+  justify-content: space-between;
+  background: var(--c-back);
+  height: 93px;
+  border: 1px solid var(--c-line);
+  padding: 19px 138px;
+
+  @include mq(lg) {
+    display: block;
+    width: 100%;
+    padding: 19px 50px;
+  }
+
+  @include mq(md) {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    padding: 10px 10px 10px 20px;
+  }
+}
+
+.title {
+  cursor: pointer;
+  color: #3f3952;
+  user-select: none;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+
+    @include mq(md) {
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+  p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.15em;
+
+    @include mq(md) {
+      font-size: 10px;
+      line-height: 14px;
+    }
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  @include mq(lg) {
+    display: none;
+  }
+
+  h2 {
+    cursor: pointer;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: #3f3952;
+
+    &:hover {
+      opacity: 0.7;
+      text-decoration: underline;
+    }
+  }
+}
+
+.sp {
+  display: none;
+  width: 80px;
+  @include mq(md) {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__search {
+    cursor: pointer;
+    margin-right: 30px;
+  }
+
+  &__menu {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}

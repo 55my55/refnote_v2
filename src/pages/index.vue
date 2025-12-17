@@ -1,50 +1,64 @@
-<template>
-  <div>
-    <Head>
-      <Title>My Tech Blog | Top</Title>
-      <Meta name="description" content="A blog about technology and programming." />
-    </Head>
-
-    <h1>Blog Posts</h1>
-
-    <div v-if="pending" class="loading-state">
-      <p>Loading posts...</p>
-    </div>
-    <div v-else-if="error" class="error-state">
-      <p>An error occurred while fetching posts. Please try again later.</p>
-      <pre>{{ error.message }}</pre>
-    </div>
-    <div v-else-if="posts && posts.contents.length > 0">
-      <PostList :posts="posts.contents" />
-      <!-- Pagination can be added here later -->
-    </div>
-    <div v-else class="empty-state">
-      <p>No posts found.</p>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { usePostList } from '~/composables/usePostList'
-import PostList from '~/components/common/organisms/PostList.vue'
+import { computed, watchEffect } from 'vue'
+import TopTemplate from '~/components/pages/TopTemplate/index.vue'
+import { useSetData } from '~/composables/useSetData'
+import { getPosts } from '~/service/BlogService'
+import { getArchiveListService } from '~/service/ArchiveService'
+import { getCategoriesApi } from '~/apis/CategoryApi'
+import { getProfileByApi } from '~/apis/ProfileApi'
+import type { BlogDataType } from '~/types/Blog'
+import type { SidebarDataType } from '~/types/Sidebar'
 
-const page = ref(1)
-const { posts, pending, error } = usePostList(page)
+const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
+
+// ブログ一覧 + サイドバー用データをまとめて SSR で取得
+const {
+  data: pageData,
+  pending: pagePending,
+  error: pageError,
+} = await useAsyncData<{
+  blogs: BlogDataType
+  sidebar: SidebarDataType
+}>('topPage', async () => {
+  const [blogs, categories, profile, archiveList] = await Promise.all([
+    getPosts(1),
+    getCategoriesApi(),
+    getProfileByApi(),
+    getArchiveListService(),
+  ])
+
+  return {
+    blogs,
+    sidebar: {
+      categories,
+      profile,
+      archiveList,
+    },
+  }
+})
+
+watchEffect(() => {
+  if (!pageData.value?.blogs) return
+  setBlogData(pageData.value.blogs.blogList, pageData.value.blogs.totalCount)
+})
+
+watchEffect(() => {
+  if (!pageData.value?.sidebar) return
+  const { categories, profile, archiveList } = pageData.value.sidebar
+  setCategoryData(categories)
+  setProfileData(profile)
+  setArchiveData(archiveList)
+})
+
+const blogList = computed(() => pageData.value?.blogs.blogList ?? [])
+const totalCount = computed(() => pageData.value?.blogs.totalCount ?? 0)
 </script>
 
-<style scoped lang="scss">
-h1 {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-}
-
-.loading-state,
-.error-state,
-.empty-state {
-  padding: 2rem;
-  text-align: center;
-  color: #666;
-  background-color: #fafafa;
-  border-radius: 8px;
-}
-</style>
+<template>
+  <TopTemplate
+    :blogs="blogList"
+    :total-count="totalCount"
+    :pending="pagePending"
+    :error="pageError"
+  />
+</template>

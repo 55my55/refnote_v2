@@ -1,0 +1,92 @@
+@use '@variable' as *;
+
+.container {
+  width: 960px;
+  min-height: 400px;
+
+  @include mq(xl) {
+    width: 100%;
+  }
+
+  // コンテンツが少なくてもフッターが下に張り付くように余白を確保
+  padding-bottom: 80px;
+}
+
+.input {
+  margin-bottom: 30px;
+  width: 500px;
+
+  @include mq(xl) {
+    display: none;
+  }
+
+  &__responsive {
+    display: none;
+    margin-bottom: 40px;
+    width: 100%;
+
+    @include mq(xl) {
+      display: block;
+    }
+
+    @include mq(md) {
+      display: none;
+    }
+  }
+
+  &__sp {
+    display: none;
+
+    @include mq(md) {
+      display: block;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-left: auto;
+      margin-bottom: 30px;
+      width: 95%;
+    }
+  }
+}
+
+.list {
+  display: block;
+
+  // PC 表示のみ
+  @include mq(lg) {
+    display: none;
+  }
+
+  &::after {
+    display: block;
+    content: '';
+    margin-bottom: 40px;
+    width: 30%;
+  }
+
+  &__responsive {
+    display: none;
+
+    // タブレット以下で表示
+    @include mq(lg) {
+      display: block;
+    }
+
+    &::after {
+      display: block;
+      content: '';
+      margin-bottom: 40px;
+      width: 30%;
+    }
+  }
+}
+
+.unknown {
+  margin-top: 40px;
+
+  p {
+    padding-bottom: 10px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: var(--c-main);
+  }
+}
