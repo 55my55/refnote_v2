@@ -1,32 +1,52 @@
-name: CI
+# .github/workflows/ci.yml
+name: Node.js CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
-  lint-and-typecheck:
+  quality:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Setup Node.js
+    steps:
+      # リポジトリをチェックアウト
+      - uses: actions/checkout@v4
+
+      # Node.js セットアップ
+      - name: Use Node.js 22.12.0
         uses: actions/setup-node@v4
         with:
           node-version: 22.12.0
           cache: npm
 
-      - name: Install dependencies
+      # 依存関係をインストール
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Lint
+      # 静的解析（ESLint）
+      - name: Static Analytics
         run: npm run lint
 
-      - name: Type check
+      # 型チェック
+      - name: Type Check
         run: npm run type-check
 
-      - name: Prettier check
+      # フォーマットチェック（Prettier）
+      - name: Prettier Check
         run: npm run format -- --check
+
+      # build 通過を担保
+      - name: App Build
+        run: npm run build
+
+      # unit test（テスト導入後に有効化）
+      # - name: Unit Test
+      #   run: npm test
+
+      # e2e test（導入後に有効化）
+      # - name: E2E Test
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     start: npm run dev
+      #     wait-on: 'http://localhost:3000'
