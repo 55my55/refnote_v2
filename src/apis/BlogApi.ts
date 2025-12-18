@@ -50,7 +50,6 @@ export const getBlogsApi = async (offset: number): Promise<BlogDataType> => {
     })
     blogData = res
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error)
     throw new Error('API ERROR: getBlogsApi')
   }
@@ -79,7 +78,6 @@ export const getBlogsContainCategoryApi = async (
     })
     blogData = res
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error)
     throw new Error('API ERROR: getBlogsContainCategoryApi')
   }
@@ -109,7 +107,6 @@ export const getBlogContainArchiveMonthApi = async (
     })
     blogData = res
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error)
     throw new Error('API ERROR: getBlogContainArchiveMonthApi')
   }
@@ -134,7 +131,6 @@ export const getBlogArchivesCountApi = async (
     })
     return res.totalCount
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error)
     throw new Error('API ERROR: getBlogArchivesCountApi')
   }
@@ -158,7 +154,6 @@ export const getBlogByApi = async (id: string, draftKey = ''): Promise<BlogItemT
     })
     blogDetail = res
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error)
     throw new Error('API ERROR: getBlogByApi')
   }

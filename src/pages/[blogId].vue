@@ -66,7 +66,7 @@ const { data } = await useAsyncData<BlogItemPageData>(
         console.time('blogItem-highlight')
         // Nuxt4 では cheerio を ESM として扱うため dynamic import を利用
         // 型は any で握りつぶし、環境依存のエラーを回避する
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         const cheerio = (await import('cheerio')) as any
         const $ = cheerio.load(blogDetailData.body)
 
