@@ -39,13 +39,13 @@ jobs:
       - name: App Build
         run: npm run build
 
-      # unit test（テスト導入後に有効化）
-      # - name: Unit Test
-      #   run: npm test
+      # unit test
+      - name: Unit Test
+        run: npm test
 
       # e2e test（導入後に有効化）
-      # - name: E2E Test
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     start: npm run dev
-      #     wait-on: 'http://localhost:3000'
+      - name: E2E Test
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run dev
+          wait-on: 'http://localhost:3000'
