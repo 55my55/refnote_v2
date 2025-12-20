@@ -50,16 +50,12 @@ describe('【Serviceテスト】BlogService', () => {
   test('【正常系】isBlogsArchivesServiceで記事が存在する場合trueが返る', async () => {
     getBlogArchivesCountApiMock.mockResolvedValueOnce(1)
 
-    await expect(isBlogsArchivesService('2021-01-01', '2021-01-31')).resolves.toBe(
-      true,
-    )
+    await expect(isBlogsArchivesService('2021-01-01', '2021-01-31')).resolves.toBe(true)
   })
 
   test('【異常系】isBlogsArchivesServiceで記事が存在しない場合falseが返る', async () => {
     getBlogArchivesCountApiMock.mockResolvedValueOnce(0)
 
-    await expect(isBlogsArchivesService('2021-01-01', '2021-01-31')).resolves.toBe(
-      false,
-    )
+    await expect(isBlogsArchivesService('2021-01-01', '2021-01-31')).resolves.toBe(false)
   })
 })

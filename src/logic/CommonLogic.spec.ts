@@ -76,9 +76,7 @@ describe('【Logicテスト】CommonLogic', () => {
     test('【異常系】errorFlgがtrueの場合、「NOT FOUND」を含むタイトルが返却される。', () => {
       const router = createRouterMock(ROUTER_PATH_NAME.TOP)
       const expectResult = `NOT FOUND | ${BASE_TITLE}`
-      expect(selectMetaDataTitleLogic({ router, errorFlg: true })).toBe(
-        expectResult,
-      )
+      expect(selectMetaDataTitleLogic({ router, errorFlg: true })).toBe(expectResult)
     })
   })
 
@@ -86,15 +84,11 @@ describe('【Logicテスト】CommonLogic', () => {
     test('【正常系】「ブログ記事」ページの場合、説明文が返却される。', () => {
       const router = createRouterMock(ROUTER_PATH_NAME.BLOG_ITEM)
       const description = 'ブログ記事です。'
-      expect(selectMetaDataDescriptionLogic({ router, description })).toBe(
-        description,
-      )
+      expect(selectMetaDataDescriptionLogic({ router, description })).toBe(description)
     })
     test('【正常系】「ポリシー」ページの場合、固定文言が返却される。', () => {
       const router = createRouterMock(ROUTER_PATH_NAME.POLICY)
-      expect(selectMetaDataDescriptionLogic({ router })).toBe(
-        METADATA_DESCRIPTION.POLICY,
-      )
+      expect(selectMetaDataDescriptionLogic({ router })).toBe(METADATA_DESCRIPTION.POLICY)
     })
     test('【異常系】errorFlgがtrueの場合、基本文言が返却される。', () => {
       const router = createRouterMock(ROUTER_PATH_NAME.TOP)
@@ -123,9 +117,7 @@ describe('【Logicテスト】CommonLogic', () => {
     })
     test('【正常系】「検索」ページの場合、検索URLが返却される。', () => {
       const router = createRouterMock(ROUTER_PATH_NAME.SEARCH)
-      expect(selectMetaDataUrlLogic({ router })).toBe(
-        REFNOTE_URL + ROUTER_PATH_NAME.SEARCH,
-      )
+      expect(selectMetaDataUrlLogic({ router })).toBe(REFNOTE_URL + ROUTER_PATH_NAME.SEARCH)
     })
     test('【正常系】その他ページの場合、fullPathが含まれる。', () => {
       const fullPath = '/category/vue?page=2'
@@ -134,9 +126,7 @@ describe('【Logicテスト】CommonLogic', () => {
     })
     test('【異常系】errorFlgがtrueの場合、トップURLが返却される。', () => {
       const router = createRouterMock(ROUTER_PATH_NAME.TOP)
-      expect(selectMetaDataUrlLogic({ router, errorFlg: true })).toBe(
-        REFNOTE_URL,
-      )
+      expect(selectMetaDataUrlLogic({ router, errorFlg: true })).toBe(REFNOTE_URL)
     })
   })
 

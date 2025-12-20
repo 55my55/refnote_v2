@@ -5,14 +5,7 @@ import vueTs from '@vue/eslint-config-typescript'
 
 export default [
   {
-    ignores: [
-      'node_modules',
-      '.nuxt',
-      '.output',
-      'dist',
-      'cypress.config.cjs',
-      'jest.config.cjs',
-    ],
+    ignores: ['node_modules', '.nuxt', '.output', 'dist', 'cypress.config.cjs', 'jest.config.cjs'],
   },
   js.configs.recommended,
   ...vueTs(),
