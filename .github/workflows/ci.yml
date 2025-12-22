@@ -35,17 +35,17 @@ jobs:
       - name: Prettier Check
         run: npm run format -- --check
 
-      # build 通過を担保
-      - name: App Build
-        run: npm run build
+      # NOTE: 外部API（microCMS）依存でCIが不安定になるため、検証はステージングで実施する。
+      # - name: App Build
+      #   run: npm run build
 
       # unit test
       - name: Unit Test
         run: npm test
 
-      # e2e test（導入後に有効化）
-      - name: E2E Test
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm run dev
-          wait-on: 'http://localhost:3000'
+      # NOTE: E2Eは実行時間と外部依存の影響が大きいため、必要時のみ手動で実施する。
+      # - name: E2E Test
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     start: npm run dev
+      #     wait-on: 'http://localhost:3000'
