@@ -16,6 +16,7 @@ import { useBlogActions } from '@/providers/BlogProviderInjectionKey'
 
 import type { BlogItemType } from '@/types/Blog'
 import type { CategoryType } from '@/types/Category'
+import type { ArchiveType } from '@/types/Archive'
 import type { SidebarDataType } from '@/types/Sidebar'
 
 // ルートパラメータ取得
@@ -30,6 +31,7 @@ const offset = (pageNum - 1) * BLOG_SHOW_COUNT
 // useSetData でまとめて状態管理
 const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
 const { setBlogData: setBlogDataProvider } = useBlogActions()
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 const {
   data: pageData,
@@ -41,10 +43,13 @@ const {
   archiveList: SidebarDataType['archiveList']
   blogData: { blogList: BlogItemType[]; totalCount: number }
 }>(`categoryPage-${categoryParam}-${pageNum}`, async () => {
+  const archiveListPromise = archiveListState.value.length
+    ? Promise.resolve(archiveListState.value)
+    : getArchiveListService()
   const [categories, profile, archiveList] = await Promise.all([
     getCategoriesApi(),
     getProfileByApi(),
-    getArchiveListService(),
+    archiveListPromise,
   ])
 
   const targetCategory = categories.find((c) => c.slug === categoryParam || c.id === categoryParam)

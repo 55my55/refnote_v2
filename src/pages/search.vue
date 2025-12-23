@@ -12,6 +12,7 @@ import { useBlogActions } from '@/providers/BlogProviderInjectionKey'
 import { getCategoriesApi } from '@/apis/CategoryApi'
 import { getProfileByApi } from '@/apis/ProfileApi'
 import { getArchiveListService } from '@/service/ArchiveService'
+import type { ArchiveType } from '@/types/Archive'
 import type { SidebarDataType } from '@/types/Sidebar'
 
 type SearchPageData = {
@@ -25,6 +26,7 @@ type SearchPageData = {
 const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
 const { setBlogData: setBlogDataProvider } = useBlogActions()
 const isNavigating = ref(false)
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 /**
  * 検索ページ用データ取得
@@ -47,10 +49,13 @@ const {
   pending: sidebarPending,
   error: sidebarError,
 } = await useAsyncData<SidebarDataType>('search-sidebar', async () => {
+  const archiveListPromise = archiveListState.value.length
+    ? Promise.resolve(archiveListState.value)
+    : getArchiveListService()
   const [categories, profile, archiveList] = await Promise.all([
     getCategoriesApi(),
     getProfileByApi(),
-    getArchiveListService(),
+    archiveListPromise,
   ])
   return {
     categories,

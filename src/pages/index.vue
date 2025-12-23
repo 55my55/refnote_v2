@@ -7,9 +7,11 @@ import { getArchiveListService } from '~/service/ArchiveService'
 import { getCategoriesApi } from '~/apis/CategoryApi'
 import { getProfileByApi } from '~/apis/ProfileApi'
 import type { BlogDataType } from '~/types/Blog'
+import type { ArchiveType } from '~/types/Archive'
 import type { SidebarDataType } from '~/types/Sidebar'
 
 const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 // ブログ一覧 + サイドバー用データをまとめて SSR で取得
 const {
@@ -20,11 +22,14 @@ const {
   blogs: BlogDataType
   sidebar: SidebarDataType
 }>('topPage', async () => {
+  const archiveListPromise = archiveListState.value.length
+    ? Promise.resolve(archiveListState.value)
+    : getArchiveListService()
   const [blogs, categories, profile, archiveList] = await Promise.all([
     getPosts(1),
     getCategoriesApi(),
     getProfileByApi(),
-    getArchiveListService(),
+    archiveListPromise,
   ])
 
   return {
