@@ -14,8 +14,10 @@ import { getCategoriesApi } from '@/apis/CategoryApi'
 import { getProfileByApi } from '@/apis/ProfileApi'
 import { getArchiveListService } from '@/service/ArchiveService'
 import { useSetData } from '@/composables/useSetData'
+import type { ArchiveType } from '@/types/Archive'
 
 const route = useRoute()
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 // /page/[page] の [page] パラメータを取得
 const pageNum = computed(() => {
@@ -30,11 +32,14 @@ const { data } = await useAsyncData(
   async () => {
     const offset = (pageNum.value - 1) * BLOG_SHOW_COUNT
 
+    const archiveListPromise = archiveListState.value.length
+      ? Promise.resolve(archiveListState.value)
+      : getArchiveListService()
     const [blogData, categories, profile, archiveList] = await Promise.all([
       getBlogsApi(offset),
       getCategoriesApi(),
       getProfileByApi(),
-      getArchiveListService(),
+      archiveListPromise,
     ])
 
     return {

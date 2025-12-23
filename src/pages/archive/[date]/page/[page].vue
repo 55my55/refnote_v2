@@ -42,6 +42,7 @@ const offset = (pageNum - 1) * BLOG_SHOW_COUNT
 const { setBlogData, setCategoryData, setProfileData, setArchiveData } = useSetData()
 // BlogProvider にもデータを流す（ArchiveTemplate は provider state を参照）
 const { setBlogData: setBlogDataProvider } = useBlogActions()
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 const {
   data: pageData,
@@ -53,10 +54,13 @@ const {
   profile: ProfileType
   archiveList: ArchiveType[]
 }>(`archivePage-${dateParam}-${pageNum}`, async () => {
+  const archiveListPromise = archiveListState.value.length
+    ? Promise.resolve(archiveListState.value)
+    : getArchiveListService()
   const [categories, profile, archiveList] = await Promise.all([
     getCategoriesApi(),
     getProfileByApi(),
-    getArchiveListService(),
+    archiveListPromise,
   ])
 
   const blogData = await getBlogTargetMonthService(offset, dateParam)

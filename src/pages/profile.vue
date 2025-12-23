@@ -26,16 +26,20 @@ type ProfilePageData = {
  * グローバル状態 setter
  */
 const { setCategoryData, setProfileData, setArchiveData } = useSetData()
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 /**
  * プロフィール＋関連データ取得
  */
 const { data, error } = await useAsyncData<ProfilePageData>('profile-page', async () => {
   // プロフィール／カテゴリ／アーカイブを並列取得
+  const archiveListPromise = archiveListState.value.length
+    ? Promise.resolve(archiveListState.value)
+    : getArchiveListService()
   const [profile, categories, archiveList] = await Promise.all([
     getProfileByApi(),
     getCategoriesApi(),
-    getArchiveListService(),
+    archiveListPromise,
   ])
 
   // cheerio は ESM なので動的 import

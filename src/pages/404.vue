@@ -25,14 +25,18 @@ type Error404PageData = {
  * （カテゴリ・アーカイブを 404 ページ表示前に反映する）
  */
 const { setCategoryData, setArchiveData, setProfileData } = useSetData()
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 /**
  * カテゴリー・アーカイブの取得
  */
 const { data } = await useAsyncData<Error404PageData>('error-404-page', async () => {
+  const archiveListPromise = archiveListState.value.length
+    ? Promise.resolve(archiveListState.value)
+    : getArchiveListService()
   const [categories, archiveList, profile] = await Promise.all([
     getCategoriesApi(),
-    getArchiveListService(),
+    archiveListPromise,
     getProfileByApi(),
   ])
 

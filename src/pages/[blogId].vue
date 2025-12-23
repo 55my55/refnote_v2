@@ -37,6 +37,7 @@ const draftKey = computed(() => (route.query.draftKey as string | undefined) ?? 
  * グローバル状態 setter（カテゴリ / プロフィール / アーカイブ）
  */
 const { setCategoryData, setProfileData, setArchiveData } = useSetData()
+const archiveListState = useState<ArchiveType[]>('archiveList', () => [])
 
 /**
  * 記事詳細データ取得（Next の getStaticProps 相当）
@@ -49,11 +50,14 @@ const { data } = await useAsyncData<BlogItemPageData>(
       console.time('blogItem-fetch')
 
       // ブログ記事詳細・カテゴリ・プロフィール・アーカイブを並列取得
+      const archiveListPromise = archiveListState.value.length
+        ? Promise.resolve(archiveListState.value)
+        : getArchiveListService()
       const [blogDetailData, categories, profile, archiveList] = await Promise.all([
         getBlogByApi(blogId.value, draftKey.value),
         getCategoriesApi(),
         getProfileByApi(),
-        getArchiveListService(),
+        archiveListPromise,
       ])
 
       console.timeEnd('blogItem-fetch')
