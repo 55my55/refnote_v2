@@ -7,6 +7,12 @@ const meta: Meta<typeof XIcon> = {
   args: {
     size: 24,
   },
+  decorators: [
+    () => ({
+      template:
+        '<div style="background:#111827; padding:16px; display:inline-block;"><story /></div>',
+    }),
+  ],
 }
 
 export default meta
