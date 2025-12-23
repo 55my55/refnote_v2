@@ -1,16 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import SearchIcon from './index.vue'
+import SearchIcon from '@/components/common/icons/SearchIcon/index.vue'
 
 const meta: Meta<typeof SearchIcon> = {
-  title: 'Common/Icons/SearchIcon',
+  title: 'Icons/SearchIcon',
   component: SearchIcon,
-  args: {
-    size: 24,
-    color: '#423a57',
-  },
 }
 
 export default meta
+
 type Story = StoryObj<typeof SearchIcon>
 
 export const Default: Story = {}
