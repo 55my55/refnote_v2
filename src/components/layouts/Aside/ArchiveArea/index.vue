@@ -63,10 +63,7 @@ const getRowClass = (index: number) => (index % 2 === 0 ? styles.archive : style
   <BasicAsidePartsArea title="アーカイブ">
     <ul :class="styles.container">
       <li v-for="(archive, i) in archiveList" :key="`${archive.originDate}_${i}`">
-        <div
-          v-if="archive.isDummy"
-          :class="[getRowClass(i), styles.archive_dummy]"
-        >
+        <div v-if="archive.isDummy" :class="[getRowClass(i), styles.archive_dummy]">
           <span>&gt;&nbsp;&nbsp;{{ archive.showDate }}</span>
         </div>
         <NuxtLink v-else :to="`/archive/${archive.linkDate}/page/1`">

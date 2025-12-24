@@ -36,9 +36,7 @@ const blogList = computed<BlogItemType[]>(() => props.blogs ?? [])
 const hasBlogs = computed(() => blogList.value.length > 0)
 const hasPagination = computed(() => props.totalCount / BLOG_SHOW_COUNT > 1)
 const isLoading = computed(
-  () =>
-    !props.error &&
-    (props.pending || props.status === 'pending' || props.status === 'idle'),
+  () => !props.error && (props.pending || props.status === 'pending' || props.status === 'idle'),
 )
 const shouldShowSkeleton = computed(() => !hasBlogs.value && isLoading.value)
 const shouldShowEmpty = computed(() => !hasBlogs.value && !isLoading.value)

@@ -67,9 +67,7 @@ export default defineEventHandler(async (event) => {
       if (res.limit === 0) break
     }
 
-    const archiveList = toArchiveList(
-      Array.from(months).sort((a, b) => (a < b ? 1 : -1)),
-    )
+    const archiveList = toArchiveList(Array.from(months).sort((a, b) => (a < b ? 1 : -1)))
 
     setHeader(event, 'Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
     setCache(cacheKey, archiveList, CACHE_TTL_MS)

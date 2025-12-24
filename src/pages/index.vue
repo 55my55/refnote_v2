@@ -23,38 +23,41 @@ const {
 } = useAsyncData<{
   blogs: BlogDataType
   sidebar: SidebarDataType
-}>('topPage', async () => {
-  const archiveListPromise = archiveListState.value.length
-    ? Promise.resolve(archiveListState.value)
-    : getArchiveListService()
-  const [blogs, categories, profile, archiveList] = await Promise.all([
-    getPosts(1),
-    getCategoriesApi(),
-    getProfileByApi(),
-    archiveListPromise,
-  ])
+}>(
+  'topPage',
+  async () => {
+    const archiveListPromise = archiveListState.value.length
+      ? Promise.resolve(archiveListState.value)
+      : getArchiveListService()
+    const [blogs, categories, profile, archiveList] = await Promise.all([
+      getPosts(1),
+      getCategoriesApi(),
+      getProfileByApi(),
+      archiveListPromise,
+    ])
 
-  return {
-    blogs,
-    sidebar: {
-      categories,
-      profile,
-      archiveList,
-    },
-  }
-},
-{
-  server: false,
-  lazy: true,
-  default: () => ({
-    blogs: initBlogData,
-    sidebar: {
-      categories: [],
-      profile: initProfileState,
-      archiveList: [],
-    },
-  }),
-})
+    return {
+      blogs,
+      sidebar: {
+        categories,
+        profile,
+        archiveList,
+      },
+    }
+  },
+  {
+    server: false,
+    lazy: true,
+    default: () => ({
+      blogs: initBlogData,
+      sidebar: {
+        categories: [],
+        profile: initProfileState,
+        archiveList: [],
+      },
+    }),
+  },
+)
 
 watchEffect(() => {
   if (!pageData.value?.blogs) return
