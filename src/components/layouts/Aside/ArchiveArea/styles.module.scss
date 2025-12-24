@@ -38,3 +38,14 @@
   @extend .archive;
   background: var(--c-bg); // ※ 背景差分（元のReact版に合わせる場合は適宜修正）
 }
+
+.archive_dummy {
+  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  color: transparent;
+  cursor: default;
+
+  &:hover {
+    background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+    color: transparent;
+  }
+}

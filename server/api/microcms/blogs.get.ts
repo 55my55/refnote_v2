@@ -1,4 +1,4 @@
-import { defineEventHandler, getQuery, createError } from 'h3'
+import { defineEventHandler, getQuery, createError, setHeader } from 'h3'
 import type { BlogDataType, MicroCMSBlogListResponse } from '~/types/Blog'
 import type { CategoryType } from '~/types/Category'
 import { getCache, setCache } from '~/server/utils/simpleCache'
@@ -73,7 +73,10 @@ export default defineEventHandler(async (event) => {
   const cacheKey = `blogs:${JSON.stringify(queries)}`
 
   const cached = getCache<BlogDataType>(cacheKey)
-  if (cached) return cached
+  if (cached) {
+    setHeader(event, 'Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
+    return cached
+  }
 
   try {
     // microCMS の生レスポンス
@@ -99,8 +102,10 @@ export default defineEventHandler(async (event) => {
       totalCount: res.totalCount,
     }
 
-    // 60 秒だけメモリキャッシュ
-    setCache(cacheKey, data, 60 * 1000)
+    setHeader(event, 'Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
+
+    // 5 分だけメモリキャッシュ
+    setCache(cacheKey, data, 5 * 60 * 1000)
 
     return data
   } catch (err) {

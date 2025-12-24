@@ -22,6 +22,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  status: {
+    type: String as PropType<'idle' | 'pending' | 'success' | 'error'>,
+    default: 'idle',
+  },
   error: {
     type: Object as PropType<Error | null>,
     default: null,
@@ -31,15 +35,49 @@ const props = defineProps({
 const blogList = computed<BlogItemType[]>(() => props.blogs ?? [])
 const hasBlogs = computed(() => blogList.value.length > 0)
 const hasPagination = computed(() => props.totalCount / BLOG_SHOW_COUNT > 1)
+const isLoading = computed(
+  () => !props.error && (props.pending || props.status === 'pending' || props.status === 'idle'),
+)
+const shouldShowSkeleton = computed(() => !hasBlogs.value && isLoading.value)
+const shouldShowEmpty = computed(() => !hasBlogs.value && !isLoading.value)
+const skeletonItems = computed(() => Array.from({ length: 4 }, (_, index) => index))
 const { metaData } = useMetaData({})
 </script>
 
 <template>
   <BasePostPageLayout :meta-data="metaData">
-    <div v-if="pending" :class="styles.status">読み込み中です...</div>
-    <div v-else-if="error" :class="styles.status">データの取得に失敗しました</div>
+    <div v-if="error" :class="styles.status">データの取得に失敗しました</div>
     <template v-else>
-      <div v-if="hasBlogs">
+      <div v-if="shouldShowSkeleton">
+        <!-- PC向けダミー一覧 -->
+        <div :class="styles.blogItem">
+          <div v-for="item in skeletonItems" :key="`skeleton-pc-${item}`" :class="styles.skeleton">
+            <div :class="styles.skeleton__image" />
+            <div :class="styles.skeleton__content">
+              <div :class="styles.skeleton__title" />
+              <div :class="styles.skeleton__tags">
+                <span :class="styles.skeleton__tag" />
+                <span :class="styles.skeleton__tag" />
+              </div>
+              <div :class="styles.skeleton__date" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SP向けダミー一覧 -->
+        <div :class="styles.blogItem__responsive">
+          <div
+            v-for="item in skeletonItems"
+            :key="`skeleton-sp-${item}`"
+            :class="styles.skeletonResponsive"
+          >
+            <div :class="styles.skeletonResponsive__image" />
+            <div :class="styles.skeletonResponsive__title" />
+            <div :class="styles.skeletonResponsive__tag" />
+          </div>
+        </div>
+      </div>
+      <div v-else-if="hasBlogs">
         <!-- PC向け一覧 -->
         <div :class="styles.blogItem">
           <BlogItem
@@ -58,7 +96,7 @@ const { metaData } = useMetaData({})
           />
         </div>
       </div>
-      <div v-else :class="styles.status">記事がありません</div>
+      <div v-else-if="shouldShowEmpty" :class="styles.status">記事がありません</div>
 
       <!-- ページネーション -->
       <Pagination v-if="hasPagination" :total-count="totalCount" link="/page/" />
