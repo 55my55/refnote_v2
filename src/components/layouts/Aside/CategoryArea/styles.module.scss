@@ -44,3 +44,16 @@
     transition: background 1s;
   }
 }
+
+.category_dummy {
+  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  color: transparent;
+  cursor: default;
+  min-width: 120px;
+  filter: none;
+
+  &:hover {
+    background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+    color: transparent;
+  }
+}

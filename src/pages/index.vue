@@ -6,6 +6,7 @@ import { getPosts } from '~/service/BlogService'
 import { getArchiveListService } from '~/service/ArchiveService'
 import { getCategoriesApi } from '~/apis/CategoryApi'
 import { getProfileByApi } from '~/apis/ProfileApi'
+import { initBlogData, initProfileState } from '~/constants/initState'
 import type { BlogDataType } from '~/types/Blog'
 import type { ArchiveType } from '~/types/Archive'
 import type { SidebarDataType } from '~/types/Sidebar'
@@ -18,7 +19,8 @@ const {
   data: pageData,
   pending: pagePending,
   error: pageError,
-} = await useAsyncData<{
+  status: pageStatus,
+} = useAsyncData<{
   blogs: BlogDataType
   sidebar: SidebarDataType
 }>('topPage', async () => {
@@ -40,6 +42,18 @@ const {
       archiveList,
     },
   }
+},
+{
+  server: false,
+  lazy: true,
+  default: () => ({
+    blogs: initBlogData,
+    sidebar: {
+      categories: [],
+      profile: initProfileState,
+      archiveList: [],
+    },
+  }),
 })
 
 watchEffect(() => {
@@ -65,5 +79,6 @@ const totalCount = computed(() => pageData.value?.blogs.totalCount ?? 0)
     :total-count="totalCount"
     :pending="pagePending"
     :error="pageError"
+    :status="pageStatus"
   />
 </template>

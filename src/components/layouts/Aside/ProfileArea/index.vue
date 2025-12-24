@@ -10,12 +10,14 @@ import GithubIcon from '~/components/common/icons/GithubIcon/index.vue'
 import FaceBookIcon from '~/components/common/icons/FaceBookIcon/index.vue'
 import { useProfilePageTransition } from '~/composables/useProfilePageTransition'
 import type { ProfileType } from '~/types/Profile'
+import { initProfileState } from '~/constants/initState'
 import styles from './styles.module.scss'
 
 const AVATAR_SIZE = 120
 
 const profileState = useState<ProfileType | null>('profile')
-const profile = computed(() => profileState.value)
+const profile = computed(() => profileState.value ?? initProfileState)
+const isProfileDummy = computed(() => !profileState.value)
 const { onClickTransitionProfilePage } = useProfilePageTransition()
 
 const image = computed(() => {
@@ -45,7 +47,15 @@ const snsLinks = computed(() =>
 
 <template>
   <BasicAsidePartsArea title="プロフィール">
-    <div v-if="profile" :class="styles.container">
+    <div v-if="isProfileDummy" :class="[styles.container, styles.dummy]">
+      <div :class="styles.dummy_image" />
+      <div :class="styles.dummy_text" />
+      <div :class="styles.dummy_text" />
+      <div :class="styles.dummy_text_small" />
+      <div :class="styles.dummy_border" />
+      <div :class="styles.dummy_button" />
+    </div>
+    <div v-else :class="styles.container">
       <div :class="styles.image">
         <NuxtImg
           :src="image.url"
