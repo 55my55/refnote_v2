@@ -11,7 +11,9 @@
     display: none;
 
     @include mq(lg) {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
   }
 }

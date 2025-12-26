@@ -7,6 +7,14 @@
   @include mq(xl) {
     width: 100%;
   }
+
+  @include mq(lg) {
+    padding: 20px 12px;
+  }
+
+  @include mq(md) {
+    padding: 16px 0;
+  }
 }
 
 .aside {

@@ -1,7 +1,6 @@
 # refnote_v2
 
-Nuxt 4 + microCMS で構築した技術ブログ。  
-初期表示の体感速度と運用安定性を重視して設計しています。
+Nuxt 4 + microCMS で構築した技術ブログ
 
 ## about
 

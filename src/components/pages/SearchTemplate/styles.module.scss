@@ -68,7 +68,9 @@
 
     // タブレット以下で表示
     @include mq(lg) {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     &::after {
