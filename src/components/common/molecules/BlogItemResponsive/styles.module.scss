@@ -2,22 +2,27 @@
 
 .container {
   cursor: pointer;
-  margin-bottom: 40px;
   width: 100%;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 0;
+  align-items: stretch;
+  padding: 0;
 
   .image {
-    width: 320px;
+    width: 33%;
     max-width: 100%;
-    aspect-ratio: 16 / 9;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    aspect-ratio: 4 / 3;
+    filter: none;
     overflow: hidden;
+    position: relative;
+    flex: 0 0 33%;
 
     @include mq(md) {
-      width: 100%;
+      width: 120px;
+      flex-basis: 120px;
     }
 
     // NuxtImg 本体をそのままスタイリング
@@ -25,7 +30,7 @@
       display: block;
       width: 100%;
       height: 100%;
-      border-radius: 12px;
+      border-radius: 0;
       object-fit: cover;
       transition: 0.5s all;
     }
@@ -43,51 +48,53 @@
 }
 
 .title {
-  margin-top: 10px;
-  padding-top: 10px;
-  font-size: 1.25rem;
+  font-size: 0.95rem;
   font-weight: bold;
   letter-spacing: 0.1em;
-  line-height: 27px;
+  line-height: 1.4;
 
   @include mq(md) {
-    margin-top: 0;
-    padding-top: 2px;
-    font-size: 0.75rem;
-    line-height: 24px;
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 }
 
 .category {
-  margin-top: 10px;
+  position: absolute;
+  top: 6px;
+  left: 6px;
   display: flex;
   flex-wrap: wrap;
-
-  @include mq(md) {
-    margin-top: 10px;
-  }
+  gap: 6px;
 
   &__item {
-    margin-right: 12px;
-    margin-bottom: 8px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-    color: var(--c-point);
-    border: 2px solid var(--c-point);
+    padding: 3px 6px;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: var(--c-point);
+    border: none;
     border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 
     @include mq(md) {
-      font-size: 0.75rem;
-      padding: 6px 8px;
-      margin-bottom: 6px;
+      font-size: 0.55rem;
+      padding: 2px 5px;
     }
   }
 }
 
-.date {
-  margin-top: 4px;
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px 10px 0;
+}
 
+.date {
+  margin-top: auto;
+  align-self: flex-end;
   @include mq(md) {
     display: none;
   }
@@ -97,6 +104,8 @@
 
     @include mq(md) {
       display: block;
+      margin-top: auto;
+      align-self: flex-end;
     }
   }
 }

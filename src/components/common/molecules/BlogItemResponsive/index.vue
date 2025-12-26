@@ -32,32 +32,34 @@ const props = defineProps<Props>()
           decoding="async"
           sizes="(max-width: 600px) 100vw, 320px"
         />
-      </div>
 
-      <!-- タイトル -->
-      <h2 :class="styles.title">
-        {{ props.blogItem.title }}
-      </h2>
-
-      <!-- カテゴリ -->
-      <div :class="styles.category">
-        <div
-          v-for="(category, index) in props.blogItem.categories"
-          :key="`${category.id}_${index}`"
-          :class="styles.category__item"
-        >
-          {{ category.name }}
+        <!-- カテゴリ（画像内左上に重ねる） -->
+        <div :class="styles.category">
+          <div
+            v-for="(category, index) in props.blogItem.categories"
+            :key="`${category.id}_${index}`"
+            :class="styles.category__item"
+          >
+            {{ category.name }}
+          </div>
         </div>
       </div>
 
-      <!-- 日付（PC） -->
-      <div :class="styles.date">
-        <DateArea :date="props.blogItem.createdAt" :size="18" />
-      </div>
+      <div :class="styles.content">
+        <!-- タイトル -->
+        <h2 :class="styles.title">
+          {{ props.blogItem.title }}
+        </h2>
 
-      <!-- 日付（SP） -->
-      <div :class="styles.date__sp">
-        <DateArea :date="props.blogItem.createdAt" :size="12" />
+        <!-- 日付（PC） -->
+        <div :class="styles.date">
+          <DateArea :date="props.blogItem.createdAt" :size="18" />
+        </div>
+
+        <!-- 日付（SP） -->
+        <div :class="styles.date__sp">
+          <DateArea :date="props.blogItem.createdAt" :size="12" />
+        </div>
       </div>
     </div>
   </NuxtLink>

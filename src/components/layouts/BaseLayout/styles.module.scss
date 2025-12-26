@@ -38,12 +38,15 @@
   }
 
   @include mq(lg) {
-    width: 90%;
+    width: 100%;
+    padding: 0 12px;
     min-height: 700px;
   }
 
   @include mq(md) {
     margin: 10px auto 20px;
+    width: 100%;
+    padding: 0 10px;
     min-height: 650px;
   }
 }
